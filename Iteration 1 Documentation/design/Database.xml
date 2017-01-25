@@ -1,13 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Database SYSTEM "Database.dtd">
 <BRAND>
-	<Brand_Name></Brand_Name>
 	<PRODUCT>
+		<IMAGES>
+			<Image_Filepath></Image_Filepath>
+		</IMAGES>
+		<KEYWORDS>
+			<Keyword_Text></Keyword_Text>
+		</KEYWORDS>
 		<Product_Name></Product_Name>
 		<Product_Price></Product_Price>
-		<IMAGE>
-			<Image_Filepath></Image_Filepath>
-		</IMAGE>
-		<KEYWORD>
-			<Keyword_Text></Keyword_Text>
-		</KEYWORD>
 	</PRODUCT>
+	<Brand_Name></Brand_Name>
 </BRAND>
