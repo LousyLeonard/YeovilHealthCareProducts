@@ -20,6 +20,7 @@ public class AllProductsQuery {
 
 		try
 		{
+			Class.forName("com.mysql.jdbc.Driver");
 			final Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/YeovilHealthcare", "root", "password");
 			final String query = SELECT_STATEMENT + BRAND_INNER_JOIN + IMAGE_INNER_JOIN;
 			final Statement stmt = conn.createStatement();
