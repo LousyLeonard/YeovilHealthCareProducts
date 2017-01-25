@@ -1,34 +1,13 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<database name="website">
-	<table name="brand">
-		<column name="BRAND_ID" type="INTEGER" primaryKey="true"/>
-		<column name="BRAND_NAME" type="CHAR" size="100"/>
-	</table>
-	<table name="product">
-		<column name="PRODUCT_ID" type="INTEGER" primaryKey="true"/>
-		<column name="PRODUCT_NAME" type="CHAR" size="255"/>
-		<column name="PRODUCT_PRICE" type="DECIMAL" size="10,2"/>
-		<foreign-key name="BRAND_ID" foreignTable="brand">
-			<reference local="FOREIGN_BRAND" foreign="BRAND" position="1"/>
-		</foreign-key>
-		</table>
-	<table name="image">
-		<column name="IMAGE_ID" type="INTEGER" primaryKey="true"/>
-		<column name="IMAGE_FILEPATH" type="CHAR" size="255"/>
-		<foreign-key name="PRODUCT_ID" foreignTable="product">
-			<reference local="FOREIGN_PRODUCT" foreign="PRODUCT" position="1"/>
-		</foreign-key>
-	</table>
-	<table name="product_keyword">
-		<foreign-key name="PRODUCT_ID" foreignTable="product">
-			<reference local="FOREIGN_PRODUCT" foreign="PRODUCT" position="1"/>
-		</foreign-key>
-		<foreign-key name="KEYWORD_ID" foreignTable="keyword">
-			<reference local="FOREIGN_KEYWORD" foreign="KEYWORD" position="1"/>
-		</foreign-key>
-	</table>
-	<table name="keyword">
-		<column name="KEYWORD_ID" type="INTEGER" primaryKey="true"/>
-		<column name="KEYWORD_TEXT" type="CHAR" size="100"/>
-	</table>
-</database>
+<BRAND>
+	<Brand_Name></Brand_Name>
+	<PRODUCT>
+		<Product_Name></Product_Name>
+		<Product_Price></Product_Price>
+		<IMAGE>
+			<Image_Filepath></Image_Filepath>
+		</IMAGE>
+		<KEYWORD>
+			<Keyword_Text></Keyword_Text>
+		</KEYWORD>
+	</PRODUCT>
+</BRAND>
