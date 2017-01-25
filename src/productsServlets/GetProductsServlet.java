@@ -1,12 +1,15 @@
 package productsServlets;
 
 import java.io.*;
+import java.util.ArrayList;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 
 import core.HTMLProductElement;
-import utilities.DemoHTMLElement;
+import core.HTMLProductFactory;
+import core.Product;
+import database.AllProductsQuery;
 import utilities.HTMLElementList;
 
 public class GetProductsServlet extends HttpServlet {
@@ -14,13 +17,15 @@ public class GetProductsServlet extends HttpServlet {
                     HttpServletResponse response)
       throws ServletException, IOException {
     PrintWriter out = response.getWriter();
-    HTMLElementList<HTMLProductElement> products = new HTMLElementList<HTMLProductElement>();
     
-    products.add(DemoHTMLElement.getDemoHTMLElement());
-    products.add(DemoHTMLElement.getDemoHTMLElement());
-    products.add(DemoHTMLElement.getDemoHTMLElement());
+    ArrayList<Product> products = AllProductsQuery.getAllProducts();
+    HTMLElementList<HTMLProductElement> htmlProducts = new HTMLElementList<HTMLProductElement>();
+
+    for (Product product: products) {
+    	htmlProducts.add(HTMLProductFactory.getHTMLFromProduct(product));
+    }
     
-    out.println(products);
+    out.println(htmlProducts);
 
   }
 }

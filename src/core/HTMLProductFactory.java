@@ -7,7 +7,7 @@ import utilities.Pair;
 
 public abstract class HTMLProductFactory {
 	
-	public HTMLProductElement getHTMLFromProduct(Product product) {
+	public static HTMLProductElement getHTMLFromProduct(Product product) {
 		ArrayList<Pair<Tags, String>> container = new ArrayList<Pair<Tags, String>>();
 		ArrayList<Pair<Tags, String>> overlay = new ArrayList<Pair<Tags, String>>();
 

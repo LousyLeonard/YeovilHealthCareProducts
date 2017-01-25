@@ -14,7 +14,7 @@ public class AllProductsQuery {
 	private static final String IMAGE_INNER_JOIN = "INNER JOIN Image AS i ON i.Product_ID = p.Product_ID;";
 	private static final String BRAND_INNER_JOIN = "INNER JOIN Brand AS b ON b.Brand_ID = p.Brand_ID ";
 
-	public ArrayList<Product> getAllProducts()
+	public static ArrayList<Product> getAllProducts()
 	{
 		final ArrayList<Product> products = new ArrayList<Product>();
 
