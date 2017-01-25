@@ -4,12 +4,12 @@ import java.util.ArrayList;
 
 public class Product {
 
-	String brand;
-	String productName;
-	String productDescription;
-	Double productPrice;
-	ArrayList<String> keywords;
-	ArrayList<String> imagePaths;
+	private String brand;
+	private String productName;
+	private String productDescription;
+	private Double productPrice;
+	private ArrayList<String> keywords;
+	private ArrayList<String> imagePaths;
 	
 	public Product(String brand, String productName, String productDescription, 
 			Double productPrice, ArrayList<String> keywords, ArrayList<String> imagePaths){

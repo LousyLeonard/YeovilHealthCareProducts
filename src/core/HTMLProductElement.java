@@ -1,6 +1,8 @@
-package utilities;
+package core;
 
 import java.util.ArrayList;
+
+import utilities.Pair;
 
 public class HTMLProductElement {
 	public enum Tags {

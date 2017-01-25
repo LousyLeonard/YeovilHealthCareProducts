@@ -2,7 +2,8 @@ package utilities;
 
 import java.util.ArrayList;
 
-import utilities.HTMLProductElement.Tags;
+import core.HTMLProductElement;
+import core.HTMLProductElement.Tags;
 
 public abstract class DemoHTMLElement {
 

@@ -5,9 +5,9 @@ import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
+import core.HTMLProductElement;
 import utilities.DemoHTMLElement;
 import utilities.HTMLElementList;
-import utilities.HTMLProductElement;
 
 public class GetProductsServlet extends HttpServlet {
   public void doGet(HttpServletRequest request,
