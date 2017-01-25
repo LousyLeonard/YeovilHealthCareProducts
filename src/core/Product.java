@@ -11,6 +11,11 @@ public class Product {
 	private ArrayList<String> keywords;
 	private ArrayList<String> imagePaths;
 	
+	public Product() {
+		keywords = new ArrayList<String>();
+		imagePaths = new ArrayList<String>();
+	}
+	
 	public Product(String brand, String productName, String productDescription, 
 			Double productPrice, ArrayList<String> keywords, ArrayList<String> imagePaths){
 		this.brand = brand;
