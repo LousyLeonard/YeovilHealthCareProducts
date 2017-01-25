@@ -5,6 +5,7 @@ import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
+import utilities.DemoHTMLElement;
 import utilities.HTMLElementList;
 import utilities.HTMLProductElement;
 
@@ -15,9 +16,9 @@ public class GetProductsServlet extends HttpServlet {
     PrintWriter out = response.getWriter();
     HTMLElementList<HTMLProductElement> products = new HTMLElementList<HTMLProductElement>();
     
-    products.add(new HTMLProductElement());
-    products.add(new HTMLProductElement());
-    products.add(new HTMLProductElement());
+    products.add(DemoHTMLElement.getDemoHTMLElement());
+    products.add(DemoHTMLElement.getDemoHTMLElement());
+    products.add(DemoHTMLElement.getDemoHTMLElement());
     
     out.println(products);
 
