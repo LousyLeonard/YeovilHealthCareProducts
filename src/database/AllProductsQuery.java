@@ -37,6 +37,8 @@ public class AllProductsQuery {
 
 				products.add(product);
 			}
+			
+			conn.close();
 		}
 		catch (final Exception e)
 		{
