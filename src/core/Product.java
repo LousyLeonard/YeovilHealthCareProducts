@@ -6,73 +6,63 @@ public class Product {
 
 	private String brand;
 	private String productName;
-	private String productDescription;
 	private Double productPrice;
-	private ArrayList<String> keywords;
-	private ArrayList<String> imagePaths;
-	
+	private final ArrayList<String> keywords;
+	private final ArrayList<String> imagePaths;
+
 	public Product() {
-		keywords = new ArrayList<String>();
-		imagePaths = new ArrayList<String>();
+		this.keywords = new ArrayList<String>();
+		this.imagePaths = new ArrayList<String>();
 	}
-	
-	public Product(String brand, String productName, String productDescription, 
-			Double productPrice, ArrayList<String> keywords, ArrayList<String> imagePaths){
+
+	public Product(final String brand, final String productName, final String productDescription,
+			final Double productPrice, final ArrayList<String> keywords, final ArrayList<String> imagePaths){
 		this.brand = brand;
 		this.productName = productName;
-		this.productDescription = productDescription;
 		this.productPrice = productPrice;
 		this.keywords = keywords;
 		this.imagePaths = imagePaths;
 	}
-	
-	
+
+
 	public String getBrand() {
-		return brand;
+		return this.brand;
 	}
 
-	public void setBrand(String brand) {
+	public void setBrand(final String brand) {
 		this.brand = brand;
 	}
 
 	public String getProductName() {
-		return productName;
+		return this.productName;
 	}
 
-	public void setProductName(String productName) {
+	public void setProductName(final String productName) {
 		this.productName = productName;
 	}
 
-	public String getProductDescription() {
-		return productDescription;
-	}
-
-	public void setProductDescription(String productDescription) {
-		this.productDescription = productDescription;
-	}
-
 	public Double getProductPrice() {
-		return productPrice;
+		return this.productPrice;
 	}
 
-	public void setProductPrice(Double productPrice) {
+	public void setProductPrice(final Double productPrice) {
 		this.productPrice = productPrice;
 	}
 
 	public ArrayList<String> getKeywords() {
-		return keywords;
+		return this.keywords;
 	}
 
-	public void addKeyword(String keyword) {
+	public void addKeyword(final String keyword) {
 		this.keywords.add(keyword);
 	}
 
 	public ArrayList<String> getImagePaths() {
-		return imagePaths;
+		return this.imagePaths;
 	}
 
-	public void addImagePath(String imagePath) {
+	public void addImagePath(final String imagePath) {
 		this.imagePaths.add(imagePath);
 	}
-	
+
 }
