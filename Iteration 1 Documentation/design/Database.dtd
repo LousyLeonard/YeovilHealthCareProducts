@@ -1,9 +1,9 @@
-<!ELEMENT BRAND (PRODUCT, Brand_Name)>
+<!ELEMENT BRAND (PRODUCT*, Brand_Name)>
 <!ELEMENT Brand_Name (#PCDATA)>
 <!ELEMENT PRODUCT (IMAGES, KEYWORDS, Product_Name, Product_Price)>
 <!ELEMENT Product_Name (#PCDATA)>
 <!ELEMENT Product_Price (#PCDATA)>
-<!ELEMENT IMAGES (Image_Filepath)>
+<!ELEMENT IMAGES (Image_Filepath*)>
 <!ELEMENT Image_Filepath (#PCDATA)>
-<!ELEMENT KEYWORDS (Keyword_Text)>
+<!ELEMENT KEYWORDS (Keyword_Text*)>
 <!ELEMENT Keyword_Text (#PCDATA)>
