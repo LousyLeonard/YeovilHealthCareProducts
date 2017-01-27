@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 import core.Product;
 
-public class AllProductsQuery {
+public class ProductsQuery {
 
 	private static final String SELECT_STATEMENT = "SELECT p.Product_Name, b.Brand_Name, p.Product_Price, i.Image_Filepath FROM YeovilHealthcare.Product AS p ";
 	private static final String BRAND_INNER_JOIN = "INNER JOIN Brand AS b ON b.Brand_ID = p.Brand_ID ";
