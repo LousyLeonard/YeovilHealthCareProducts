@@ -1,3 +1,4 @@
+<!ELEMENT BRANDS (BRAND*)>
 <!ELEMENT BRAND (PRODUCT*, Brand_Name)>
 <!ELEMENT Brand_Name (#PCDATA)>
 <!ELEMENT PRODUCT (IMAGES, KEYWORDS, Product_Name, Product_Price)>
