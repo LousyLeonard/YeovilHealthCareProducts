@@ -1,31 +1,38 @@
 package productsServlets;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import core.HTMLProductElement;
 import core.HTMLProductFactory;
 import core.Product;
-import database.AllProductsQuery;
+import database.ProductsQuery;
 import utilities.HTMLElementList;
 
 public class GetProductsServlet extends HttpServlet {
-  public void doGet(HttpServletRequest request,
-                    HttpServletResponse response)
-      throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-    
-    ArrayList<Product> products = AllProductsQuery.getAllProducts();
-    HTMLElementList<HTMLProductElement> htmlProducts = new HTMLElementList<HTMLProductElement>();
+	@Override
+	public void doGet(final HttpServletRequest request,
+			final HttpServletResponse response)
+					throws ServletException, IOException {
+		final PrintWriter out = response.getWriter();
 
-    for (Product product: products) {
-    	htmlProducts.add(HTMLProductFactory.getHTMLFromProduct(product));
-    }
-    
-    out.println(htmlProducts);
+		// PLACEHOLDER
+		final String field = null;
 
-  }
+		final ArrayList<Product> products = ProductsQuery.getAllProducts(field);
+		final HTMLElementList<HTMLProductElement> htmlProducts = new HTMLElementList<HTMLProductElement>();
+
+		for (final Product product: products) {
+			htmlProducts.add(HTMLProductFactory.getHTMLFromProduct(product));
+		}
+
+		out.println(htmlProducts);
+
+	}
 }
