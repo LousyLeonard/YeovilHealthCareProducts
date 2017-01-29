@@ -30,6 +30,13 @@
             	$("#resultsTable").html(responseText);           // Locate HTML DOM element with ID "somediv" and set its text content with the response text.
         	});
         };
+        
+        function getProducts() {
+        	var searchValue = document.getElementById("search").value;
+        	$.get("products",{"search":searchValue}, function(responseText) {   
+            	$("#resultsTable").html(responseText);
+        	}); 
+        }
      </script>
 </head><!--/head-->
 
@@ -121,7 +128,9 @@
 					</div>
 					<div class="col-sm-3">
 						<div class="search_box pull-right">
-							<input type="text" placeholder="Search"/>
+							<form action="javascript:getProducts()" id="searchbox">
+                            	<input type="search" id="search" name="search" placeholder="Search"/>
+							</form>						
 						</div>
 					</div>
 				</div>
