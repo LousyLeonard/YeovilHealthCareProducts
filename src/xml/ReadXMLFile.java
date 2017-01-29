@@ -43,7 +43,6 @@ public class ReadXMLFile {
                 // prints filename and directory name
                 System.out.println(inPath + path);
                 System.out.println(getProductsFromXML(inPath + path));
-
             }
 
 		} catch (Exception e) {
