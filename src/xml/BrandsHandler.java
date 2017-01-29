@@ -7,14 +7,7 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import xml.generated.BRAND;
-import xml.generated.BRANDS;
-import xml.generated.IMAGES;
-import xml.generated.ImageFilepath;
-import xml.generated.KEYWORDS;
-import xml.generated.KeywordText;
-import xml.generated.ObjectFactory;
-import xml.generated.PRODUCT;
+import xml.generated.*;
 
 public class BrandsHandler extends DefaultHandler {
 

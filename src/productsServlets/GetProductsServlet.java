@@ -23,16 +23,23 @@ public class GetProductsServlet extends HttpServlet {
 		final PrintWriter out = response.getWriter();
 
 		// PLACEHOLDER
-		final String field = null;
+		final String searchField = request.getParameter("search");
 
-		final ArrayList<Product> products = ProductsQuery.getAllProducts(field);
+		final ArrayList<Product> products = ProductsQuery.getAllProducts(searchField);
 		final HTMLElementList<HTMLProductElement> htmlProducts = new HTMLElementList<HTMLProductElement>();
 
 		for (final Product product: products) {
 			htmlProducts.add(HTMLProductFactory.getHTMLFromProduct(product));
 		}
-
+		
 		out.println(htmlProducts);
 
+	}
+	
+	@Override
+	public void doPost(final HttpServletRequest request,
+			final HttpServletResponse response)
+					throws ServletException, IOException {
+		System.out.println("test");
 	}
 }

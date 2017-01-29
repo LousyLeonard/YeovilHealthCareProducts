@@ -25,11 +25,16 @@
 
 	 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
      <script>
-     	window.onload = function() { // When HTML DOM "click" event is invoked on element with ID "somebutton", execute the following function...
-        	$.get("products", function(responseText) {   // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
-            	$("#resultsTable").html(responseText);           // Locate HTML DOM element with ID "somediv" and set its text content with the response text.
-        	});
+     	window.onload = function() { 
+     		getProducts();
         };
+        
+        function getProducts() {
+        	var searchValue = document.getElementById("search").value;
+        	$.get("products",{"search":searchValue}, function(responseText) {   
+            	$("#resultsTable").html(responseText);
+        	}); 
+        }
      </script>
 </head><!--/head-->
 
@@ -121,7 +126,9 @@
 					</div>
 					<div class="col-sm-3">
 						<div class="search_box pull-right">
-							<input type="text" placeholder="Search"/>
+							<form action="javascript:getProducts()" id="searchbox">
+                            	<input type="search" id="search" name="search" placeholder="Search"/>
+							</form>						
 						</div>
 					</div>
 				</div>

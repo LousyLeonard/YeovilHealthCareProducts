@@ -4,27 +4,15 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.XMLConstants;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
-import javax.xml.transform.Source;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamSource;
-import javax.xml.validation.Schema;
-import javax.xml.validation.SchemaFactory;
-import javax.xml.validation.Validator;
-
-import org.w3c.dom.Document;
-import org.xml.sax.helpers.DefaultHandler;
 
 import core.Product;
 import utilities.XMLFileFilter;
 import xml.generated.*;
 
 //xjc -dtd -d "C:\Users\Lawrence\git\YeovilHealthCareProducts\src" -p xml.generated "C:\Users\Lawrence\git\YeovilHealthCareProducts\Database.dtd"
-public class ReadXMLFile {
+public class ReadXMLFiles {
 
 	public static ObjectFactory objectFactory = new ObjectFactory();
 
