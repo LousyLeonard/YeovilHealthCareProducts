@@ -1,154 +1,76 @@
 package xml;
 
-import java.util.Stack;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.xml.XMLConstants;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
-import org.xml.sax.Attributes;
-import org.xml.sax.SAXException;
+import javax.xml.transform.Source;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamSource;
+import javax.xml.validation.Schema;
+import javax.xml.validation.SchemaFactory;
+import javax.xml.validation.Validator;
+
+import org.w3c.dom.Document;
 import org.xml.sax.helpers.DefaultHandler;
 
+import core.Product;
+import utilities.XMLFileFilter;
 import xml.generated.*;
 
 //xjc -dtd -d "C:\Users\Lawrence\git\YeovilHealthCareProducts\src" -p xml.generated "C:\Users\Lawrence\git\YeovilHealthCareProducts\Database.dtd"
 public class ReadXMLFile {
 
 	public static ObjectFactory objectFactory = new ObjectFactory();
-	
-   public static void main(String argv[]) {
 
-    try {
+	public static void main(String argv[]) {
 
-	SAXParserFactory factory = SAXParserFactory.newInstance();
-	SAXParser saxParser = factory.newSAXParser();
-	
-	DefaultHandler handler = new DefaultHandler() {
+		try {
+			String inPath = "C:\\Users\\Lawrence\\git\\YeovilHealthCareProducts\\XMLInputScripts\\";
+			// create new file
+            File f = new File(inPath);
 
-	boolean Product_Name = false;
-	boolean Product_Price = false;
-	boolean Brand_Name = false;
-	boolean Keyword_Text = false;
-	boolean Image_Filepath = false;
-	
-	BRAND brand;
-	
-	Stack<Object> current = new Stack<Object>();
-	
-	public void startElement(String uri, String localName, String qName,
-                Attributes attributes) throws SAXException {
-		
-		if (qName.equalsIgnoreCase("BRAND")) {
-			brand = objectFactory.createBRAND();
-			current.push(brand);
-		}
-		
-		if (qName.equalsIgnoreCase("PRODUCT")) {
-			PRODUCT product = objectFactory.createPRODUCT();
-			brand.getPRODUCT().add(product);
-			current.push(product);
-		}
-		
-		if (qName.equalsIgnoreCase("IMAGES")) {
-			IMAGES image = objectFactory.createIMAGES();
-			((PRODUCT) current.peek()).setIMAGES(image);
-			current.push(image);
-		}
+            // array of files and directory
+            String[] paths = f.list(new XMLFileFilter());
 
-		if (qName.equalsIgnoreCase("KEYWORDS")) {
-			KEYWORDS image = objectFactory.createKEYWORDS();
-			((PRODUCT) current.peek()).setKEYWORDS(image);
-			current.push(image);		
-		}
+            // for each name in the path array
+            for (String path : paths) {
+                // prints filename and directory name
+                System.out.println(inPath + path);
+                System.out.println(getProductsFromXML(inPath + path));
 
-		if (qName.equalsIgnoreCase("Product_Name")) {
-			Product_Name = true;
-		}
+            }
 
-		if (qName.equalsIgnoreCase("Product_Price")) {
-			Product_Price = true;
-		}
-
-		
-		if (qName.equalsIgnoreCase("Brand_Name")) {
-			Brand_Name = true;
-		}
-		
-		if (qName.equalsIgnoreCase("Keyword_Text")) {
-			Keyword_Text = true;
-		}
-		
-		if (qName.equalsIgnoreCase("Image_Filepath")) {
-			Image_Filepath = true;
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 
 	}
-
-	public void endElement(String uri, String localName,
-		String qName) throws SAXException {
-
-		if (qName.equalsIgnoreCase("PRODUCT")) {
-			current.pop();		
-		}
-		
-		if (qName.equalsIgnoreCase("IMAGES")) {
-			current.pop();		
-		}
-
-		if (qName.equalsIgnoreCase("KEYWORDS")) {
-			current.pop();		
-		}
-	}
-
-	public void characters(char ch[], int start, int length) throws SAXException {
-
-		if (Product_Name) {
-			System.out.println("Product_Name : " + new String(ch, start, length));
-			((PRODUCT) current.peek()).setProductName(new String(ch, start, length));
-		}
-
-		if (Product_Price) {
-			System.out.println("Product_Price : " + new String(ch, start, length));
-			((PRODUCT) current.peek()).setProductPrice(new String(ch, start, length));
-		}
-		
-		if (Brand_Name) {
-			System.out.println("Brand_Name : " + new String(ch, start, length));
-			((BRAND) current.peek()).setBrandName(new String(ch, start, length));
-		}
-		
-		if (Keyword_Text) {
-			System.out.println("Keyword_Text : " + new String(ch, start, length));
-			KeywordText keywordText = new KeywordText();
-			keywordText.setvalue(new String(ch, start, length));
-			((KEYWORDS) current.peek()).getKeywordText().add(keywordText);
-		}
-		
-		if (Image_Filepath) {
-			System.out.println("Image_Filepath : " + new String(ch, start, length));
-			ImageFilepath imageFilepath = new ImageFilepath();
-			imageFilepath.setvalue(new String(ch, start, length));
-			((IMAGES) current.peek()).getImageFilepath().add(imageFilepath);
-		}
-
-		clearBooleans();
-	}
 	
-	private void clearBooleans() {
-		Product_Name = false;
-		Product_Price = false;
-		Brand_Name = false;
-		Keyword_Text = false;
-		Image_Filepath = false;
+	private static List<Product> getProductsFromXML(String folderPath) {
+		List<Product> products = new ArrayList<Product>();
+		
+		try {
+
+			SAXParserFactory factory = SAXParserFactory.newInstance();
+			SAXParser saxParser = factory.newSAXParser();
+			
+			BrandsHandler handler = new BrandsHandler();
+			saxParser.parse(folderPath, handler);
+		
+			if (handler.getBrands() != null) {
+				products = ProductConverter.getProducts(handler.getBrands());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return products;
 	}
-
-     };
-
-       saxParser.parse("C:\\Users\\Lawrence\\git\\YeovilHealthCareProducts\\Database.xml", handler);
-
-     } catch (Exception e) {
-       e.printStackTrace();
-     }
-
-   }
 
 }
