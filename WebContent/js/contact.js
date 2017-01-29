@@ -1,6 +1,6 @@
 jQuery(function($) {'use strict',
 
-	var form = $('.contact-form');
+	//var form2 = $('.contact-form');
 	form.submit(function () {'use strict',
 		$this = $(this);
 		$.post("sendemail.php", $(".contact-form").serialize(),function(result){

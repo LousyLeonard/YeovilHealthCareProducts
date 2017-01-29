@@ -22,41 +22,41 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "imageFilepath"
+    "brand"
 })
-@XmlRootElement(name = "IMAGES")
-public class IMAGES {
+@XmlRootElement(name = "BRANDS")
+public class BRANDS {
 
-    @XmlElement(name = "Image_Filepath")
-    protected List<ImageFilepath> imageFilepath;
+    @XmlElement(name = "BRAND")
+    protected List<BRAND> brand;
 
     /**
-     * Gets the value of the imageFilepath property.
+     * Gets the value of the brand property.
      * 
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the imageFilepath property.
+     * This is why there is not a <CODE>set</CODE> method for the brand property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
-     *    getImageFilepath().add(newItem);
+     *    getBRAND().add(newItem);
      * </pre>
      * 
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link ImageFilepath }
+     * {@link BRAND }
      * 
      * 
      */
-    public List<ImageFilepath> getImageFilepath() {
-        if (imageFilepath == null) {
-            imageFilepath = new ArrayList<ImageFilepath>();
+    public List<BRAND> getBRAND() {
+        if (brand == null) {
+            brand = new ArrayList<BRAND>();
         }
-        return this.imageFilepath;
+        return this.brand;
     }
 
 }

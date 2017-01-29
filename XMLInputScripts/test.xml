@@ -1,0 +1,11 @@
+	<PRODUCT>
+		<IMAGES>
+			<Image_Filepath>testfileurl</Image_Filepath>
+		</IMAGES>
+		<KEYWORDS>
+			<Keyword_Text>useful</Keyword_Text>
+			<Keyword_Text>useless</Keyword_Text>
+		</KEYWORDS>
+		<Product_Name>testproduct</Product_Name>
+		<Product_Price>10</Product_Price>
+	</PRODUCT>

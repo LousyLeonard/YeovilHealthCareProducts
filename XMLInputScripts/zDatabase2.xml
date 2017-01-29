@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Database SYSTEM "Database.dtd">
+<BRANDS>
+<BRAND>
+	<PRODUCT>
+		<IMAGES>
+			<Image_Filepath>testfileurl</Image_Filepath>
+		</IMAGES>
+		<KEYWORDS>
+			<Keyword_Text>useful</Keyword_Text>
+			<Keyword_Text>useless</Keyword_Text>
+		</KEYWORDS>
+		<Product_Name>testproduct</Product_Name>
+		<Product_Price>10</Product_Price>
+	</PRODUCT>
+	<Brand_Name>first</Brand_Name>
+</BRAND>
+<BRAND>
+	<PRODUCT>
+		<IMAGES>
+			<Image_Filepath>testfileurl2</Image_Filepath>
+		</IMAGES>
+		<KEYWORDS>
+			<Keyword_Text>useful22</Keyword_Text>
+		</KEYWORDS>
+		<Product_Name>testproduct22</Product_Name>
+		<Product_Price>102</Product_Price>
+	</PRODUCT>
+	<Brand_Name>second</Brand_Name>
+</BRAND>
+</BRANDS>
