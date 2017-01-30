@@ -9,6 +9,7 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  
   <servlet>
     <servlet-name>productsServlet</servlet-name>
     <servlet-class>productsServlets.GetProductsServlet</servlet-class>
@@ -16,5 +17,14 @@
 	<servlet-mapping>
 	    <servlet-name>productsServlet</servlet-name>
 	    <url-pattern>/products</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+    <servlet-name>brandsServlet</servlet-name>
+    <servlet-class>productsServlets.GetBrandsServlet</servlet-class>
+   </servlet>
+	<servlet-mapping>
+	    <servlet-name>brandsServlet</servlet-name>
+	    <url-pattern>/brands</url-pattern>
 	</servlet-mapping>
 </web-app>

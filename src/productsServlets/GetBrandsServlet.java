@@ -9,29 +9,31 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import core.HTMLProductElement;
+import core.Brand;
+import core.HTMLBrandElement;
 import core.HTMLElementFactory;
-import core.Product;
-import database.ProductsQuery;
+import database.BrandsQuery;
 import utilities.HTMLElementList;
 
-public class GetProductsServlet extends HttpServlet {
+public class GetBrandsServlet extends HttpServlet {
+	
+	private static final Integer NUMBER_TO_DISPLAY = Integer.valueOf(10);
+	
 	@Override
 	public void doGet(final HttpServletRequest request,
 			final HttpServletResponse response)
 					throws ServletException, IOException {
 		final PrintWriter out = response.getWriter();
 
-		final String searchField = request.getParameter("search");
+		final ArrayList<Brand> brands = BrandsQuery.getAllBrands();
+		final HTMLElementList<HTMLBrandElement> htmlProducts = new HTMLElementList<HTMLBrandElement>();
 
-		final ArrayList<Product> products = ProductsQuery.getAllProducts(searchField);
-		final HTMLElementList<HTMLProductElement> htmlProducts = new HTMLElementList<HTMLProductElement>();
-
-		for (final Product product: products) {
-			htmlProducts.add(HTMLElementFactory.getHTMLFromProduct(product));
+		for (final Brand brand : brands) {
+			htmlProducts.add(HTMLElementFactory.getHTMLFromBrand(brand));
 		}
-		
+				
 		out.println(htmlProducts);
 
 	}
+
 }

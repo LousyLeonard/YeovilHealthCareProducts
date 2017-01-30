@@ -20,7 +20,7 @@ public class BrandsQuery {
 	/** Initialises an arraylist of brands. */
 	private static ArrayList<Brand> brandsList;
 
-	public static ArrayList<Brand> getAllBrands(final String searchField)
+	public static ArrayList<Brand> getAllBrands()
 	{
 		brandsList = new ArrayList<Brand>();
 

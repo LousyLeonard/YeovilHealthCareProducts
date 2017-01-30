@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import core.HTMLProductElement.Tags;
 import utilities.Pair;
 
-public abstract class HTMLProductFactory {
+public abstract class HTMLElementFactory {
 	
 	public static HTMLProductElement getHTMLFromProduct(Product product) {
 		ArrayList<Pair<Tags, String>> container = new ArrayList<Pair<Tags, String>>();
@@ -23,6 +23,11 @@ public abstract class HTMLProductFactory {
 
 		HTMLProductElement htmlElement = new HTMLProductElement(container, overlay);
 		
+		return htmlElement;
+	}
+
+	public static HTMLBrandElement getHTMLFromBrand(Brand brand) {
+		HTMLBrandElement htmlElement = new HTMLBrandElement(brand.getBrand());
 		return htmlElement;
 	}
 }
