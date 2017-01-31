@@ -3,6 +3,7 @@ package database;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
@@ -12,17 +13,23 @@ import core.Brand;
  * @author tommy.hamblin
  *
  */
-public class BrandsQuery {
+public class BrandsQuery {	
 
-	/** Initialises a brand object. */
-	private static Brand brand;
+	public static ArrayList<Brand> getAllBrands() {
+		final String query = DatabaseConstants.BRAND_SELECT_STATEMENT;
 
-	/** Initialises an arraylist of brands. */
-	private static ArrayList<Brand> brandsList;
+		return doQuery(query);
+	}
+	
+	public static ArrayList<Brand> getTopTenBrands() {
+		final String query = DatabaseConstants.BRAND_TOP_10;
 
-	public static ArrayList<Brand> getAllBrands()
+		return doQuery(query);
+	}
+	
+	private static ArrayList<Brand> doQuery(String query)
 	{
-		brandsList = new ArrayList<Brand>();
+		ArrayList<Brand> brands = new ArrayList<Brand>();
 
 		try
 		{
@@ -31,7 +38,6 @@ public class BrandsQuery {
 			// Creates a database connection with the Yeovilhealthcare database
 			// Username of "root" and password of "password"
 			final Connection conn = DriverManager.getConnection(DatabaseConstants.DATABASE_CONNECTION, DatabaseConstants.DATABASE_USERNAME, DatabaseConstants.DATABASE_PASSWORD);
-			final String query = DatabaseConstants.BRAND_SELECT_STATEMENT;
 			final Statement stmt = conn.createStatement();
 
 			// Executes the select query
@@ -40,11 +46,11 @@ public class BrandsQuery {
 			while(rs.next())
 			{
 				// Creates a new brand object with the result set output
-				brand = new Brand();
+				Brand brand = new Brand();
 				brand.setBrand(rs.getString(DatabaseConstants.BRAND_NAME));
 
 				// Adds the brand object to the brands arraylist
-				brandsList.add(brand);
+				brands.add(brand);
 			}
 
 			// Closes the database connection
@@ -55,6 +61,7 @@ public class BrandsQuery {
 			System.err.println(e);
 		}
 
-		return brandsList;
+		return brands;
 	}
+	
 }

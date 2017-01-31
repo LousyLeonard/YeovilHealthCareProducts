@@ -15,17 +15,19 @@ import core.HTMLElementFactory;
 import database.BrandsQuery;
 import utilities.HTMLElementList;
 
+/**
+ * @author lawrence.coles
+ *
+ */
 public class GetBrandsServlet extends HttpServlet {
-	
-	private static final Integer NUMBER_TO_DISPLAY = Integer.valueOf(10);
-	
+		
 	@Override
 	public void doGet(final HttpServletRequest request,
 			final HttpServletResponse response)
 					throws ServletException, IOException {
 		final PrintWriter out = response.getWriter();
 
-		final ArrayList<Brand> brands = BrandsQuery.getAllBrands();
+		final ArrayList<Brand> brands = BrandsQuery.getTopTenBrands();
 		final HTMLElementList<HTMLBrandElement> htmlProducts = new HTMLElementList<HTMLBrandElement>();
 
 		for (final Brand brand : brands) {
@@ -33,7 +35,6 @@ public class GetBrandsServlet extends HttpServlet {
 		}
 				
 		out.println(htmlProducts);
-
 	}
 
 }

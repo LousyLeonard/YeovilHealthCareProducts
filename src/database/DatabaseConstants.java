@@ -26,6 +26,9 @@ public abstract class DatabaseConstants {
 
 	/** Constant for the SQL where clause for brand name. */
 	public static final String BRAND_WHERE_CLAUSE = "WHERE b.Brand_Name = ";
+	
+	public static final String BRAND_TOP_10 = "select Brand.Brand_Name brand,count (Product.Brand_ID) count_product "
+			+ "from Brand inner join Product on Brand.Brand_ID = Product.Brand_ID group by brand order by count_product DESC limit 10";
 
 	/** Constant for the Insert statement close segment. */
 	public static final String CLOSE = "); ";
