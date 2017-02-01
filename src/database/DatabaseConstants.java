@@ -82,7 +82,7 @@ public abstract class DatabaseConstants {
 	public static final String IMAGES_PRIMARY_ID = "Image_ID";
 
 	/** Constant for the product table. */
-	public static final String IMAGES_TABLE = "Images";
+	public static final String IMAGES_TABLE = "Image";
 
 	/** Constant for the JDBC Driver. */
 	public static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";

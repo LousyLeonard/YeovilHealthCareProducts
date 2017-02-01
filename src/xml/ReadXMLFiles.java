@@ -8,6 +8,7 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 import core.Product;
+import database.DataInsertScript;
 import utilities.XMLFileFilter;
 import xml.generated.*;
 
@@ -25,12 +26,16 @@ public class ReadXMLFiles {
 
             // array of files and directory
             String[] paths = f.list(new XMLFileFilter());
+            ArrayList<Product> products = new ArrayList<Product>();
 
             // for each name in the path array
             for (String path : paths) {
                 // prints filename and directory name
-                System.out.println(inPath + path);
-                System.out.println(getProductsFromXML(inPath + path));
+                products.addAll(getProductsFromXML(inPath + path));
+            }
+            
+            for (Product product : products) {
+            	DataInsertScript.insertData(product);
             }
 
 		} catch (Exception e) {
