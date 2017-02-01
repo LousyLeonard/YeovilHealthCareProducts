@@ -21,10 +21,10 @@ public class BrandsQuery {
 		return doQuery(query);
 	}
 
-	// Returns the ID of a brand
-	public static Integer getBrandID(final String Brand_Name)
+	// Returns the unique ID of a brand
+	public static Integer getBrandID(final String brandName)
 	{
-		final String query = "SELECT * FROM BRAND AS b WHERE b.Brand_Name = '" + Brand_Name + "';";
+		final String query = DatabaseConstants.SELECT_ALL_BRANDS + DatabaseConstants.APOSTROPHE + brandName + DatabaseConstants.APOSTROPHE + DatabaseConstants.SEMI_COLON;
 
 		final ArrayList<Brand> brands = doQuery(query);
 		if (brands.isEmpty()) {

@@ -27,11 +27,11 @@ public abstract class DatabaseConstants {
 	/** Insert statement for the Brand table. */
 	public static final String BRAND_TABLE_INSERTS = "INSERT INTO Brand(Brand_ID, Brand_Name) VALUES (";
 
-	public static final String BRAND_TOP_10 = "SELECT b.Brand_Name, count(p.Brand_ID) AS count_product "
-			+ "from Brand AS b INNER JOIN Product AS p on b.Brand_ID = p.Brand_ID GROUP BY b.Brand_Name order by count_product DESC limit 10";
+	/** Select statement to return top 10 brands. */
+	public static final String BRAND_TOP_10 = "SELECT b.Brand_Name, count(p.Brand_ID) AS count_product from Brand AS b INNER JOIN Product AS p on b.Brand_ID = p.Brand_ID GROUP BY b.Brand_Name order by count_product DESC limit 10";
 
 	/** Constant for the SQL where clause for brand name. */
-	public static final String BRAND_WHERE_CLAUSE = "WHERE b.Brand_Name = ";
+	public static final String BRAND_WHERE_CLAUSE = "WHERE b.Brand_Name = '?';";
 
 	/** Constant for the Insert statement close segment. */
 	public static final String CLOSE = "); ";
@@ -102,13 +102,13 @@ public abstract class DatabaseConstants {
 	public static final String KEYWORD_TEXT = "Keyword_Text";
 
 	/** Constant for the SQL where clause for product name. */
-	public static final String KEYWORD_WHERE_CLAUSE_PART1 = "WHERE p.Product_Name = ";
+	public static final String KEYWORD_WHERE_CLAUSE = "WHERE p.Product_Name = '?' OR b.Brand_Name = '?' OR k.Keyword_Text = '?';";
 
 	/** Where clause continuation. */
-	public static final String KEYWORD_WHERE_CLAUSE_PART2 = " OR b.Brand_Name = ";
+	public static final String KEYWORD_WHERE_CLAUSE_PART2 = " ";
 
 	/** Where clause continuation. */
-	public static final String KEYWORD_WHERE_CLAUSE_PART3 = " OR k.Keyword_Text = ";
+	public static final String KEYWORD_WHERE_CLAUSE_PART3 = " ";
 
 	/** Insert statement for the Product-Keyword table. */
 	public static final String PRODUCT_KEYWORD_INSERTS = "INSERT INTO Product_Keyword (Product_ID, Keyword_ID) VALUES (";
@@ -133,6 +133,12 @@ public abstract class DatabaseConstants {
 
 	/** Insert statement for the Product table. */
 	public static final String PRODUCT_TABLE_INSERTS = "INSERT INTO Product(Product_ID, Product_Name, Product_Price, Brand_ID) VALUES (";
+
+	/** Select statement for all brands. */
+	public static final String SELECT_ALL_BRANDS = "SELECT * FROM BRAND AS b WHERE b.Brand_Name = ";
+
+	/** Select statement for all keywords. */
+	public static final String SELECT_ALL_KEYWORDS = "SELECT * FROM KEYWORD AS k WHERE k.Keyword_Text = ";
 
 	/** Constant for closing statement. */
 	public static final String SEMI_COLON = ";";

@@ -24,18 +24,15 @@ public class DataInsertScript {
 
 			Class.forName(DatabaseConstants.JDBC_DRIVER);
 
-			// Creates a stringbuilder for the SQL Insert script query
-			//final StringBuilder query = new StringBuilder();
-			//query.append(DatabaseConstants.USE_DATABASE);
-
 			// Creates a database connection with the Yeovilhealthcare database
 			// Username of "root" and password of "password"
 			final Connection conn = DriverManager.getConnection(DatabaseConstants.DATABASE_CONNECTION, DatabaseConstants.DATABASE_USERNAME, DatabaseConstants.DATABASE_PASSWORD);
 			final Statement stmt = conn.createStatement();
 			stmt.executeQuery(DatabaseConstants.USE_DATABASE);
+
 			// Builds the Insert script query
 			Integer brandID = BrandsQuery.getBrandID(product.getBrand());
-			// Checks to see if a brand exists before making one
+			// Checks to see if a brand exists before creating one
 			if (brandID == -1) {
 				brandID = generator.getNewUniqueID(Table.BRAND);
 				final String brandInsert = DatabaseConstants.BRAND_TABLE_INSERTS + brandID + DatabaseConstants.COMMA + DatabaseConstants.APOSTROPHE + product.getBrand() + DatabaseConstants.APOSTROPHE + DatabaseConstants.CLOSE;
@@ -70,8 +67,6 @@ public class DataInsertScript {
 				stmt.executeUpdate(productKeywordInsert);
 			}
 
-			//Executing the query on the database
-			//stmt.executeQuery(query.toString());
 			// Closes the connection with the database
 			conn.close();
 		}
