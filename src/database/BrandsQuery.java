@@ -3,7 +3,6 @@ package database;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
@@ -13,23 +12,35 @@ import core.Brand;
  * @author tommy.hamblin
  *
  */
-public class BrandsQuery {	
+public class BrandsQuery {
 
 	public static ArrayList<Brand> getAllBrands() {
 		final String query = DatabaseConstants.BRAND_SELECT_STATEMENT;
 
 		return doQuery(query);
 	}
-	
+
+	public static Integer getBrandID(final String Brand_Name)
+	{
+		final String query = "SELECT * FROM BRAND AS b WHERE b.Brand_Name = '" + Brand_Name + "';";
+
+		final ArrayList<Brand> brands = doQuery(query);
+		if (brands.isEmpty()) {
+			return -1;
+		}
+
+		return brands.get(0).getBrandID();
+	}
+
 	public static ArrayList<Brand> getTopTenBrands() {
 		final String query = DatabaseConstants.BRAND_TOP_10;
 
 		return doQuery(query);
 	}
-	
-	private static ArrayList<Brand> doQuery(String query)
+
+	private static ArrayList<Brand> doQuery(final String query)
 	{
-		ArrayList<Brand> brands = new ArrayList<Brand>();
+		final ArrayList<Brand> brands = new ArrayList<Brand>();
 
 		try
 		{
@@ -46,8 +57,9 @@ public class BrandsQuery {
 			while(rs.next())
 			{
 				// Creates a new brand object with the result set output
-				Brand brand = new Brand();
+				final Brand brand = new Brand();
 				brand.setBrand(rs.getString(DatabaseConstants.BRAND_NAME));
+				brand.setBrandID(Integer.parseInt(rs.getString(DatabaseConstants.BRAND_PRIMARY_ID)));
 
 				// Adds the brand object to the brands arraylist
 				brands.add(brand);
@@ -63,5 +75,5 @@ public class BrandsQuery {
 
 		return brands;
 	}
-	
+
 }
