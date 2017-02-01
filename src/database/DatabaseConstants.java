@@ -27,8 +27,7 @@ public abstract class DatabaseConstants {
 	/** Insert statement for the Brand table. */
 	public static final String BRAND_TABLE_INSERTS = "INSERT INTO Brand(Brand_ID, Brand_Name) VALUES (";
 
-	public static final String BRAND_TOP_10 = "SELECT b.Brand_Name, b.Brand_ID, count(p.Brand_ID) AS count_product "
-			+ "from Brand AS b INNER JOIN Product AS p on b.Brand_ID = p.Brand_ID GROUP BY b.Brand_Name order by count_product DESC limit 10";
+	public static final String BRAND_TOP_10 = "SELECT b.Brand_Name, b.Brand_ID, count(p.Brand_ID) AS count_product FROM Brand AS b INNER JOIN Product AS p on b.Brand_ID = p.Brand_ID GROUP BY b.Brand_Name ORDER BY count_product DESC limit 10";
 
 	/** Constant for the SQL where clause for brand name. */
 	public static final String BRAND_WHERE_CLAUSE = "WHERE b.Brand_Name = '?';";
@@ -99,16 +98,11 @@ public abstract class DatabaseConstants {
 	/** Insert statement for the Keyword table. */
 	public static final String KEYWORD_TABLE_INSERTS = "INSERT INTO Keyword (Keyword_ID, Keyword_Text) VALUES (";
 
+	/** Constant for keyword text. */
 	public static final String KEYWORD_TEXT = "Keyword_Text";
 
 	/** Constant for the SQL where clause for product name. */
 	public static final String KEYWORD_WHERE_CLAUSE = "WHERE p.Product_Name = '?' OR b.Brand_Name = '?' OR k.Keyword_Text = '?';";
-
-	/** Where clause continuation. */
-	public static final String KEYWORD_WHERE_CLAUSE_PART2 = " ";
-
-	/** Where clause continuation. */
-	public static final String KEYWORD_WHERE_CLAUSE_PART3 = " ";
 
 	/** Insert statement for the Product-Keyword table. */
 	public static final String PRODUCT_KEYWORD_INSERTS = "INSERT INTO Product_Keyword (Product_ID, Keyword_ID) VALUES (";

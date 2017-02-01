@@ -30,6 +30,7 @@ public class ProductsQuery {
 	// Returns all products
 	public static ArrayList<Product> getAllProducts(final String searchField)
 	{
+		// Builds query from constants
 		final String query = DatabaseConstants.PRODUCT_SELECT_STATEMENT + DatabaseConstants.BRAND_INNER_JOIN + DatabaseConstants.IMAGE_INNER_JOIN + DatabaseConstants.SEMI_COLON;
 
 		return doQuery(query);
@@ -38,6 +39,7 @@ public class ProductsQuery {
 	// Returns all products for a brand name
 	public static ArrayList<Product> getProductsByBrand(final String searchField)
 	{
+		// Builds query from constants
 		final String query = DatabaseConstants.PRODUCT_SELECT_STATEMENT + DatabaseConstants.BRAND_INNER_JOIN + DatabaseConstants.IMAGE_INNER_JOIN + DatabaseConstants.BRAND_WHERE_CLAUSE;
 
 		// Replaces parameters with search field value
@@ -59,6 +61,7 @@ public class ProductsQuery {
 	// Returns all products as searched on by keyword
 	public static ArrayList<Product> getProductsByKeyword(final String searchField)
 	{
+		// Builds query from constants
 		final String query = DatabaseConstants.PRODUCT_SELECT_STATEMENT + DatabaseConstants.BRAND_INNER_JOIN + DatabaseConstants.IMAGE_INNER_JOIN + DatabaseConstants.PRODUCT_KEYWORD_LEFT_JOIN + DatabaseConstants.KEYWORD_LEFT_JOIN + DatabaseConstants.KEYWORD_WHERE_CLAUSE;
 
 		// Replaces parameters with search field value
