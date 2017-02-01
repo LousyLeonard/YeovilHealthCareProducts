@@ -2,38 +2,45 @@ package core;
 
 public class Keyword {
 
-	private String keyword;
-	private Integer keywordName;
+	private Integer keywordID;
+	private String keywordText;
 
 	public Keyword() {
-		this.keyword = "";
-		this.setKeywordName(-1);
+		this.setKeywordText("");
+		this.setKeywordID(-1);
 	}
 
 	public Keyword(final String keyword) {
-		this.keyword = keyword;
-	}
-
-	public String getKeyword() {
-		return this.keyword;
-	}
-
-	public void setKeyword(final String keyword) {
-		this.keyword = keyword;
+		this.setKeywordText(keyword);
 	}
 
 	/**
-	 * @return the keywordName
+	 * @return the keywordID
 	 */
-	public int getKeywordName() {
-		return this.keywordName;
+	public Integer getKeywordID() {
+		return this.keywordID;
 	}
 
 	/**
-	 * @param brandID the keywordName to set
+	 * @param keywordID the keywordID to set
 	 */
-	public void setKeywordName(final Integer keywordName) {
-		this.keywordName = keywordName;
+	public void setKeywordID(final Integer keywordID) {
+		this.keywordID = keywordID;
 	}
-	
+
+	/**
+	 * @return the keywordText
+	 */
+	public String getKeywordText() {
+		return this.keywordText;
+	}
+
+	/**
+	 * @param keywordText the keywordText to set
+	 */
+	public void setKeywordText(final String keywordText) {
+		this.keywordText = keywordText;
+	}
+
+
 }

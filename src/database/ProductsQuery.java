@@ -73,7 +73,7 @@ public class ProductsQuery {
 			// Creates a database connection with the Yeovilhealthcare database
 			// Username of "root" and password of "password"
 			final Connection conn = DriverManager.getConnection(DatabaseConstants.DATABASE_CONNECTION, DatabaseConstants.DATABASE_USERNAME, DatabaseConstants.DATABASE_PASSWORD);
-			final String query = DatabaseConstants.PRODUCT_SELECT_STATEMENT + DatabaseConstants.BRAND_INNER_JOIN + DatabaseConstants.IMAGE_INNER_JOIN + DatabaseConstants.BRAND_WHERE_CLAUSE + searchFieldEntry + DatabaseConstants.SEMI_COLON;
+			final String query = DatabaseConstants.PRODUCT_SELECT_STATEMENT + DatabaseConstants.BRAND_INNER_JOIN + DatabaseConstants.IMAGE_INNER_JOIN + DatabaseConstants.BRAND_WHERE_CLAUSE + DatabaseConstants.APOSTROPHE + searchFieldEntry + DatabaseConstants.APOSTROPHE + DatabaseConstants.SEMI_COLON;
 			final Statement stmt = conn.createStatement();
 
 			// Executes the select query
@@ -114,7 +114,7 @@ public class ProductsQuery {
 			// Creates a database connection with the Yeovilhealthcare database
 			// Username of "root" and password of "password"
 			final Connection conn = DriverManager.getConnection(DatabaseConstants.DATABASE_CONNECTION, DatabaseConstants.DATABASE_USERNAME, DatabaseConstants.DATABASE_PASSWORD);
-			final String query = DatabaseConstants.PRODUCT_SELECT_STATEMENT + DatabaseConstants.BRAND_INNER_JOIN + DatabaseConstants.IMAGE_INNER_JOIN + DatabaseConstants.PRODUCT_KEYWORD_LEFT_JOIN + DatabaseConstants.KEYWORD_LEFT_JOIN + DatabaseConstants.KEYWORD_WHERE_CLAUSE_PART1 + searchFieldEntry + DatabaseConstants.KEYWORD_WHERE_CLAUSE_PART2 + searchFieldEntry + DatabaseConstants.KEYWORD_WHERE_CLAUSE_PART3 + searchFieldEntry + DatabaseConstants.SEMI_COLON;
+			final String query = DatabaseConstants.PRODUCT_SELECT_STATEMENT + DatabaseConstants.BRAND_INNER_JOIN + DatabaseConstants.IMAGE_INNER_JOIN + DatabaseConstants.PRODUCT_KEYWORD_LEFT_JOIN + DatabaseConstants.KEYWORD_LEFT_JOIN + DatabaseConstants.KEYWORD_WHERE_CLAUSE_PART1 + DatabaseConstants.APOSTROPHE + searchFieldEntry + DatabaseConstants.APOSTROPHE + DatabaseConstants.KEYWORD_WHERE_CLAUSE_PART2 + DatabaseConstants.APOSTROPHE + searchFieldEntry + DatabaseConstants.APOSTROPHE + DatabaseConstants.KEYWORD_WHERE_CLAUSE_PART3 + DatabaseConstants.APOSTROPHE + searchFieldEntry + DatabaseConstants.APOSTROPHE + DatabaseConstants.SEMI_COLON;
 			final Statement stmt = conn.createStatement();
 
 			// Executes the select query

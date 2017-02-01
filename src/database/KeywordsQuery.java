@@ -6,43 +6,29 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import core.Brand;
+import core.Keyword;
 
 /**
  * @author tommy.hamblin
  *
  */
-public class BrandsQuery {
+public class KeywordsQuery {
 
-	// Returns all brands
-	public static ArrayList<Brand> getAllBrands() {
-		final String query = DatabaseConstants.BRAND_SELECT_STATEMENT;
-
-		return doQuery(query);
-	}
-
-	// Returns the ID of a brand
-	public static Integer getBrandID(final String Brand_Name)
+	public static Integer getKeywordID(final String keywordText)
 	{
-		final String query = "SELECT * FROM BRAND AS b WHERE b.Brand_Name = '" + Brand_Name + "';";
+		final String query = "SELECT * FROM KEYWORD AS k WHERE k.Keyword_Text = '" + keywordText + "';";
 
-		final ArrayList<Brand> brands = doQuery(query);
-		if (brands.isEmpty()) {
+		final ArrayList<Keyword> keywords = doQuery(query);
+		if (keywords.isEmpty()) {
 			return -1;
 		}
 
-		return brands.get(0).getBrandID();
+		return keywords.get(0).getKeywordID();
 	}
 
-	public static ArrayList<Brand> getTopTenBrands() {
-		final String query = DatabaseConstants.BRAND_TOP_10;
-
-		return doQuery(query);
-	}
-
-	private static ArrayList<Brand> doQuery(final String query)
+	private static ArrayList<Keyword> doQuery(final String query)
 	{
-		final ArrayList<Brand> brands = new ArrayList<Brand>();
+		final ArrayList<Keyword> keywords = new ArrayList<Keyword>();
 
 		try
 		{
@@ -59,12 +45,11 @@ public class BrandsQuery {
 			while(rs.next())
 			{
 				// Creates a new brand object with the result set output
-				final Brand brand = new Brand();
-				brand.setBrand(rs.getString(DatabaseConstants.BRAND_NAME));
-				brand.setBrandID(Integer.parseInt(rs.getString(DatabaseConstants.BRAND_PRIMARY_ID)));
+				final Keyword keyword = new Keyword();
+				keyword.setKeywordText(rs.getString(DatabaseConstants.KEYWORD_TEXT));
 
 				// Adds the brand object to the brands arraylist
-				brands.add(brand);
+				keywords.add(keyword);
 			}
 
 			// Closes the database connection
@@ -75,7 +60,7 @@ public class BrandsQuery {
 			System.err.println(e);
 		}
 
-		return brands;
+		return keywords;
 	}
 
 }

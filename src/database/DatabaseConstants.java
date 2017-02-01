@@ -6,6 +6,9 @@ package database;
  */
 public abstract class DatabaseConstants {
 
+	/** Constant for an apostrophe. */
+	public static final String APOSTROPHE = "'";
+
 	/** SQL inner join of the brand table on the product table. */
 	public static final String BRAND_INNER_JOIN = "INNER JOIN Brand AS b ON b.Brand_ID = p.Brand_ID ";
 
