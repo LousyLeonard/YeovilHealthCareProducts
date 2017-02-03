@@ -28,10 +28,11 @@ public class ProductsQuery {
 	private static PreparedStatement stmt = null;
 
 	// Returns all products
-	public static ArrayList<Product> getAllProducts(final String searchField)
+	public static ArrayList<Product> getAllProducts(final String searchField, Integer pageNo)
 	{
 		// Builds query from constants
-		final String query = DatabaseConstants.PRODUCT_SELECT_STATEMENT + DatabaseConstants.BRAND_INNER_JOIN + DatabaseConstants.IMAGE_INNER_JOIN + DatabaseConstants.SEMI_COLON;
+		final String query = DatabaseConstants.PRODUCT_SELECT_STATEMENT + DatabaseConstants.BRAND_INNER_JOIN 
+				+ DatabaseConstants.IMAGE_INNER_JOIN + DatabaseConstants.LIMIT_AND_OFFSET + pageNo + DatabaseConstants.SEMI_COLON;
 
 		try 
 		{
