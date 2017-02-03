@@ -9,25 +9,25 @@ public class HTMLBrandElement {
 	private static final String HEADING_END = "</h4></div>";		
 	private static final String CONTAINER_END = "</div>";		
 
-	private StringBuilder BODY;
+	private StringBuilder body;
 
 	public HTMLBrandElement(String heading) {
-		BODY = new StringBuilder();
+		body = new StringBuilder();
 		
-		BODY.append(CONTAINER_START);
-		BODY.append(getHTMLHeading(heading));
-		BODY.append(HEADING_END);
-		BODY.append(CONTAINER_END);
+		body.append(CONTAINER_START);
+		body.append(getHTMLHeading(heading));
+		body.append(HEADING_END);
+		body.append(CONTAINER_END);
 	}
 	
 	public HTMLBrandElement(String heading, ArrayList<String> entries) {
-		BODY = new StringBuilder();
+		body = new StringBuilder();
 		
-		BODY.append(CONTAINER_START);
-		BODY.append(getHTMLAccordianHeading(heading));
-		BODY.append(HEADING_END);
-		BODY.append(getHTMLAccordianBody(heading, entries));
-		BODY.append(CONTAINER_END);
+		body.append(CONTAINER_START);
+		body.append(getHTMLAccordianHeading(heading));
+		body.append(HEADING_END);
+		body.append(getHTMLAccordianBody(heading, entries));
+		body.append(CONTAINER_END);
 	}
 	
 	private String getHTMLHeading(String heading) {
@@ -55,6 +55,6 @@ public class HTMLBrandElement {
 	}
 	
 	public String toString() {
-		return BODY.toString();
+		return body.toString();
 	}
 }

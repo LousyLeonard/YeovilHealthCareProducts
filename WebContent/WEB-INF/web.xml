@@ -1,30 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
-  <display-name>YeovilHealthCareProducts</display-name>
-  <welcome-file-list>
-    <welcome-file>index.html</welcome-file>
-    <welcome-file>index.htm</welcome-file>
-    <welcome-file>index.jsp</welcome-file>
-    <welcome-file>default.html</welcome-file>
-    <welcome-file>default.htm</welcome-file>
-    <welcome-file>default.jsp</welcome-file>
-  </welcome-file-list>
-  
-  <servlet>
-    <servlet-name>productsServlet</servlet-name>
-    <servlet-class>productsServlets.GetProductsServlet</servlet-class>
-   </servlet>
-	<servlet-mapping>
-	    <servlet-name>productsServlet</servlet-name>
-	    <url-pattern>/products</url-pattern>
-	</servlet-mapping>
-	
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+	id="WebApp_ID" version="3.1">
+	<display-name>YeovilHealthCareProducts</display-name>
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.htm</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>default.html</welcome-file>
+		<welcome-file>default.htm</welcome-file>
+		<welcome-file>default.jsp</welcome-file>
+	</welcome-file-list>
+
 	<servlet>
-    <servlet-name>brandsServlet</servlet-name>
-    <servlet-class>productsServlets.GetBrandsServlet</servlet-class>
-   </servlet>
+		<servlet-name>productsServlet</servlet-name>
+		<servlet-class>productsServlets.GetProductsServlet</servlet-class>
+	</servlet>
 	<servlet-mapping>
-	    <servlet-name>brandsServlet</servlet-name>
-	    <url-pattern>/brands</url-pattern>
+		<servlet-name>productsServlet</servlet-name>
+		<url-pattern>/products</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>brandsServlet</servlet-name>
+		<servlet-class>productsServlets.GetBrandsServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>brandsServlet</servlet-name>
+		<url-pattern>/brands</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>pagesServlet</servlet-name>
+		<servlet-class>productsServlets.GetPagesServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>pagesServlet</servlet-name>
+		<url-pattern>/pages</url-pattern>
 	</servlet-mapping>
 </web-app>

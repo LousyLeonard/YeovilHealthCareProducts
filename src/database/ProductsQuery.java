@@ -15,6 +15,11 @@ import core.Product;
  */
 public class ProductsQuery {
 
+	// Please stop doing this! this will fail very quickly because multiple
+	// users need to do this at
+	// the same time, they dont want to share these things.....
+	// Thing should only be attributes if they are attributes! not just because
+
 	/** Initialises a product object. */
 	private static Product product = null;
 
@@ -28,81 +33,75 @@ public class ProductsQuery {
 	private static PreparedStatement stmt = null;
 
 	// Returns all products
-	public static ArrayList<Product> getAllProducts(final String searchField, Integer pageNo)
-	{
+	public static ArrayList<Product> getAllProducts(final String searchField, Integer pageNo) {
 		// Builds query from constants
-		final String query = DatabaseConstants.PRODUCT_SELECT_STATEMENT + DatabaseConstants.BRAND_INNER_JOIN 
-				+ DatabaseConstants.IMAGE_INNER_JOIN + DatabaseConstants.LIMIT_AND_OFFSET + pageNo + DatabaseConstants.SEMI_COLON;
+		final String query = DatabaseConstants.PRODUCT_SELECT_STATEMENT + DatabaseConstants.BRAND_INNER_JOIN
+				+ DatabaseConstants.IMAGE_INNER_JOIN + DatabaseConstants.LIMIT_AND_OFFSET + (pageNo - 1)* 50
+				+ DatabaseConstants.SEMI_COLON;
 
-		try 
-		{
+		try {
 			Class.forName(DatabaseConstants.JDBC_DRIVER);
 			// Creates a database connection with the Yeovilhealthcare database
 			// Username of "root" and password of "password"
-			conn = DriverManager.getConnection(DatabaseConstants.DATABASE_CONNECTION, DatabaseConstants.DATABASE_USERNAME, DatabaseConstants.DATABASE_PASSWORD);
+			conn = DriverManager.getConnection(DatabaseConstants.DATABASE_CONNECTION,
+					DatabaseConstants.DATABASE_USERNAME, DatabaseConstants.DATABASE_PASSWORD);
 			stmt = conn.prepareStatement(query);
-		} 
-		catch (SQLException e) 
-		{
+		} catch (SQLException e) {
 			e.printStackTrace();
 			System.err.println(e);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 			System.err.println(e);
 		}
-		
+
 		return doQuery(query);
 	}
 
 	// Returns all products for a brand name
-	public static ArrayList<Product> getProductsByBrand(final String searchField)
-	{
+	public static ArrayList<Product> getProductsByBrand(final String searchField) {
 		// Builds query from constants
-		final String query = DatabaseConstants.PRODUCT_SELECT_STATEMENT + DatabaseConstants.BRAND_INNER_JOIN + DatabaseConstants.IMAGE_INNER_JOIN + DatabaseConstants.BRAND_WHERE_CLAUSE;
+		final String query = DatabaseConstants.PRODUCT_SELECT_STATEMENT + DatabaseConstants.BRAND_INNER_JOIN
+				+ DatabaseConstants.IMAGE_INNER_JOIN + DatabaseConstants.BRAND_WHERE_CLAUSE;
 
 		// Replaces parameters with search field value
-		try
-		{
+		try {
 			Class.forName(DatabaseConstants.JDBC_DRIVER);
 			// Creates a database connection with the Yeovilhealthcare database
 			// Username of "root" and password of "password"
-			conn = DriverManager.getConnection(DatabaseConstants.DATABASE_CONNECTION, DatabaseConstants.DATABASE_USERNAME, DatabaseConstants.DATABASE_PASSWORD);
+			conn = DriverManager.getConnection(DatabaseConstants.DATABASE_CONNECTION,
+					DatabaseConstants.DATABASE_USERNAME, DatabaseConstants.DATABASE_PASSWORD);
 			stmt = conn.prepareStatement(query);
 			stmt.setString(1, searchField);
-		}
-		catch (final SQLException e)
-		{
+		} catch (final SQLException e) {
 			e.printStackTrace();
 			System.err.println(e);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 			System.err.println(e);
 		}
-
 
 		return doQuery(query);
 	}
 
 	// Returns all products as searched on by keyword
-	public static ArrayList<Product> getProductsByKeyword(final String searchField)
-	{
+	public static ArrayList<Product> getProductsByKeyword(final String searchField) {
 		// Builds query from constants
-		final String query = DatabaseConstants.PRODUCT_SELECT_STATEMENT + DatabaseConstants.BRAND_INNER_JOIN + DatabaseConstants.IMAGE_INNER_JOIN + DatabaseConstants.PRODUCT_KEYWORD_LEFT_JOIN + DatabaseConstants.KEYWORD_LEFT_JOIN + DatabaseConstants.KEYWORD_WHERE_CLAUSE;
+		final String query = DatabaseConstants.PRODUCT_SELECT_STATEMENT + DatabaseConstants.BRAND_INNER_JOIN
+				+ DatabaseConstants.IMAGE_INNER_JOIN + DatabaseConstants.PRODUCT_KEYWORD_LEFT_JOIN
+				+ DatabaseConstants.KEYWORD_LEFT_JOIN + DatabaseConstants.KEYWORD_WHERE_CLAUSE;
 
 		// Replaces parameters with search field value
-		try
-		{
+		try {
 			Class.forName(DatabaseConstants.JDBC_DRIVER);
 			// Creates a database connection with the Yeovilhealthcare database
 			// Username of "root" and password of "password"
-			conn = DriverManager.getConnection(DatabaseConstants.DATABASE_CONNECTION, DatabaseConstants.DATABASE_USERNAME, DatabaseConstants.DATABASE_PASSWORD);
+			conn = DriverManager.getConnection(DatabaseConstants.DATABASE_CONNECTION,
+					DatabaseConstants.DATABASE_USERNAME, DatabaseConstants.DATABASE_PASSWORD);
 			stmt = conn.prepareStatement(query);
 			stmt.setString(1, searchField);
 			stmt.setString(2, searchField);
 			stmt.setString(3, searchField);
-		}
-		catch (final SQLException e)
-		{
+		} catch (final SQLException e) {
 			e.printStackTrace();
 			System.err.println(e);
 		} catch (ClassNotFoundException e) {
@@ -114,17 +113,14 @@ public class ProductsQuery {
 	}
 
 	// Executes the query with the appropriate SQL statement
-	private static ArrayList<Product> doQuery(final String query)
-	{
+	private static ArrayList<Product> doQuery(final String query) {
 		products = new ArrayList<Product>();
 
-		try
-		{
+		try {
 			// Executes the select query
 			final ResultSet rs = stmt.executeQuery(query);
 
-			while(rs.next())
-			{
+			while (rs.next()) {
 				// Create a new product object with the result set output
 				product = new Product();
 				product.setProductName(rs.getString(DatabaseConstants.PRODUCT_NAME));
@@ -138,14 +134,41 @@ public class ProductsQuery {
 
 			// Closes the database connection
 			conn.close();
-		}
-		catch (final Exception e)
-		{
+		} catch (final Exception e) {
 			System.err.println(e);
 		}
 
 		return products;
 
+	}
+
+	public static Integer getNumberOfPages() {
+		// Builds query from constants
+		final String query = DatabaseConstants.PRODUCT_SELECT_STATEMENT + DatabaseConstants.BRAND_INNER_JOIN
+				+ DatabaseConstants.IMAGE_INNER_JOIN + DatabaseConstants.SEMI_COLON;
+
+		try {
+			Class.forName(DatabaseConstants.JDBC_DRIVER);
+			// Creates a database connection with the Yeovilhealthcare database
+			// Username of "root" and password of "password"
+			conn = DriverManager.getConnection(DatabaseConstants.DATABASE_CONNECTION,
+					DatabaseConstants.DATABASE_USERNAME, DatabaseConstants.DATABASE_PASSWORD);
+			stmt = conn.prepareStatement(query);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.err.println(e);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			System.err.println(e);
+		}
+
+		ArrayList<Product> products = doQuery(query);
+		
+		Integer numberOfPages = products.size() / 50;
+		if (products.size() % 50 != 0) {
+			numberOfPages++;
+		}
+		return numberOfPages;
 	}
 
 }
