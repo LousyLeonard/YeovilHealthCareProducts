@@ -20,7 +20,7 @@ public class ReadXMLFiles {
 	public static void main(String argv[]) {
 
 		try {
-			String inPath = "C:\\Users\\Lawrence\\git\\YeovilHealthCareProducts\\XMLInputScripts\\";
+			String inPath = "C:\\Users\\thejo\\git\\YeovilHealthCareProducts\\XMLInputScripts\\";
 			// create new file
             File f = new File(inPath);
 
