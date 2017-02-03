@@ -155,4 +155,7 @@ public abstract class DatabaseConstants {
 
 	/** Constant to call the database that is to be queried. */
 	public static final String USE_DATABASE = "USE YeovilHealthcare; ";
+	
+	/** Constant to configure the limit and the offset. */
+	public static final String LIMIT_AND_OFFSET = " LIMIT 50 OFFSET ";
 }
