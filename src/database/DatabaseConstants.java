@@ -27,6 +27,7 @@ public abstract class DatabaseConstants {
 	/** Insert statement for the Brand table. */
 	public static final String BRAND_TABLE_INSERTS = "INSERT INTO Brand(Brand_ID, Brand_Name) VALUES (";
 
+	/** Selects 10 brands. */
 	public static final String BRAND_TOP_10 = "SELECT b.Brand_Name, b.Brand_ID, count(p.Brand_ID) AS count_product FROM Brand AS b INNER JOIN Product AS p on b.Brand_ID = p.Brand_ID GROUP BY b.Brand_Name ORDER BY count_product DESC limit 10";
 
 	/** Constant for the SQL where clause for brand name. */
@@ -64,6 +65,21 @@ public abstract class DatabaseConstants {
 
 	/** Constant for the database username. */
 	public static final String DATABASE_USERNAME = "root";
+
+	/** Constant for drop brand table script. */
+	public static final String DROP_BRAND_TABLE = "DROP TABLE IF EXISTS YeovilHealthcare.Brand; ";
+
+	/** Constant for drop image table script. */
+	public static final String DROP_IMAGE_TABLE = "DROP TABLE IF EXISTS YeovilHealthcare.Image; ";
+
+	/** Constant for drop keyword table script. */
+	public static final String DROP_KEYWORD_TABLE = "DROP TABLE IF EXISTS YeovilHealthcare.Keyword; ";
+
+	/** Constant for drop product keyword table script. */
+	public static final String DROP_PRODUCT_KEYWORD_TABLE = "DROP TABLE IF EXISTS YeovilHealthcare.Product_Keyword; ";
+
+	/** Constant for drop product table script. */
+	public static final String DROP_PRODUCT_TABLE = "DROP TABLE IF EXISTS YeovilHealthcare.Product; ";
 
 	/** Select statement to find the max ID in the Product table. */
 	public static final String GENERIC_MAX_ID_QUERY = "SELECT MAX(#primaryidcolumn) as maxid FROM #table";
