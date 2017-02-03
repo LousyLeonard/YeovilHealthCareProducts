@@ -25,6 +25,8 @@
 
 	 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
      <script>
+     	var pageNo = 1;
+     
      	window.onload = function() { 
      		getProducts();
      		getBrands();
@@ -32,16 +34,16 @@
         
         function getProducts() {
         	var searchValue = document.getElementById("search").value;
-        	$.get("products",{"search":searchValue}, function(responseText) {   
+        	$.get("products",{"search":searchValue, "pageNo":window.pageNo}, function(responseText) {   
             	$("#resultsTable").html(responseText);
         	}); 
-        }
+        };
         
         function getBrands() {
         	$.get("brands", function(responseText) {
         		$("#categoryTable").html(responseText);
-        	})
-        }
+        	});
+        };
      </script>
 </head><!--/head-->
 
@@ -181,9 +183,9 @@
 						<h2 class="title text-center">Features Items</h2>
 						<div id="resultsTable"></div>
 						<div><ul class="pagination">
-  							<li><a href="#">&laquo;</a></li>
-  							<li><a href="#">1</a></li>
-  							<li><a class="active" href="#">2</a></li>
+  							<li><a onclick="pageNo--;getProducts()">&laquo;</a></li>
+  							<li><a onclick="pageNo=1;getProducts()">1</a></li>
+  							<li><a onclick="pageNo=2;getProducts()" class="active">2</a></li>
   							<li><a href="#">3</a></li>
   							<li><a href="#">4</a></li>
   							<li><a href="#">5</a></li>

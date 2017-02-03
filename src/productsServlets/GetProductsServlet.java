@@ -23,6 +23,7 @@ public class GetProductsServlet extends HttpServlet {
 		final PrintWriter out = response.getWriter();
 
 		final String searchField = request.getParameter("search");
+		final String pageNoField = request.getParameter("pageNo");
 
 		final ArrayList<Product> products = ProductsQuery.getAllProducts(searchField);
 		final HTMLElementList<HTMLProductElement> htmlProducts = new HTMLElementList<HTMLProductElement>();
