@@ -3,6 +3,8 @@
  */
 package core;
 
+import java.util.ArrayList;
+
 /**
  * @author Lawrence
  *
@@ -19,26 +21,16 @@ public class HTMLPageElement {
 		
 		body.append(PAGE_OPEN);
 		
-		int upperOverflow = 0;
-		int lowerOverflow = 0;
-		for (int i = 0; i < 9; i++) {
-			if (offset + i - 5 > 0 && offset + i - 5 < totalPages) {
-				body.append(getPageNumberElement(offset + i - 5));
-			} else if (offset + i - 5 <= 0) {
-				upperOverflow++;
-			} else if (offset + i - 5 >= totalPages) {
-				lowerOverflow++;
+		// Do this as numbers calculate the lowest available and then count up like 9 stopping at max
+		Integer lowestPage = offset;
+		while (lowestPage - (MAX_NUMBER_OF_ELEMENTS / 2) <= 0) {
+			lowestPage++;
+		}
+				
+		for(int i = 0; i < MAX_NUMBER_OF_ELEMENTS; ++i) {
+			if (lowestPage + i <= totalPages) {
+				body.append(getPageNumberElement(lowestPage + i));
 			}
-		}
-		
-		for (int i = 0; i < upperOverflow; i++) {
-			if (offset + i + 4 < totalPages)
-				body.append(getPageNumberElement(offset + i + 5));
-		}
-		
-		for (int i = 0; i < lowerOverflow; i++) {
-			if (offset - i - 4 > 0)
-				body.append(getPageNumberElement(offset - i - 5));
 		}
 		
 		body.append(PAGE_CLOSE);
