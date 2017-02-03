@@ -16,9 +16,11 @@ public abstract class HTMLElementFactory {
 		}
 
 		container.add(new Pair<Tags, String>(Tags.HEADING, "&pound;" + product.getProductPrice()));
+		container.add(new Pair<Tags, String>(Tags.PARAGRAPH, product.getBrand()));
 		container.add(new Pair<Tags, String>(Tags.PARAGRAPH, product.getProductName()));
 
 		overlay.add(new Pair<Tags, String>(Tags.HEADING, "&pound;" + product.getProductPrice()));
+		overlay.add(new Pair<Tags, String>(Tags.PARAGRAPH, product.getBrand()));
 		overlay.add(new Pair<Tags, String>(Tags.PARAGRAPH, product.getProductName()));
 
 		HTMLProductElement htmlElement = new HTMLProductElement(container, overlay);
