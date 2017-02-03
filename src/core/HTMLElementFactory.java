@@ -14,12 +14,12 @@ public abstract class HTMLElementFactory {
 		for (String path : product.getImagePaths()) {
 			container.add(new Pair<Tags, String>(Tags.IMAGE, path));
 		}
-
-		container.add(new Pair<Tags, String>(Tags.HEADING, "&pound;" + product.getProductPrice()));
+		
+		container.add(new Pair<Tags, String>(Tags.HEADING, "&pound;" + product.getProductPriceForDisplay()));
 		container.add(new Pair<Tags, String>(Tags.PARAGRAPH, product.getBrand()));
 		container.add(new Pair<Tags, String>(Tags.PARAGRAPH, product.getProductName()));
 
-		overlay.add(new Pair<Tags, String>(Tags.HEADING, "&pound;" + product.getProductPrice()));
+		overlay.add(new Pair<Tags, String>(Tags.HEADING, "&pound;" + product.getProductPriceForDisplay()));
 		overlay.add(new Pair<Tags, String>(Tags.PARAGRAPH, product.getBrand()));
 		overlay.add(new Pair<Tags, String>(Tags.PARAGRAPH, product.getProductName()));
 

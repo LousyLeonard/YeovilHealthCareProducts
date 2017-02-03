@@ -1,5 +1,6 @@
 package core;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class Product {
@@ -43,6 +44,11 @@ public class Product {
 
 	public Double getProductPrice() {
 		return this.productPrice;
+	}
+	
+	public String getProductPriceForDisplay() {
+		DecimalFormat df = new DecimalFormat("#.00");
+		return df.format(this.productPrice);
 	}
 
 	public void setProductPrice(final Double productPrice) {
