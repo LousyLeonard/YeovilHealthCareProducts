@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 import core.Product;
@@ -15,46 +14,14 @@ import core.Product;
  */
 public class ProductsQuery {
 
-	// Please stop doing this! this will fail very quickly because multiple
-	// users need to do this at
-	// the same time, they dont want to share these things.....
-	// Thing should only be attributes if they are attributes! not just because
-
-	/** Initialises a product object. */
-	private static Product product = null;
-
-	/** Initialises a products arraylist. */
-	private static ArrayList<Product> products = null;
-
-	/** Initialises the database connection. */
-	private static Connection conn = null;
-
-	/** Initialises a prepared sql statement. */
-	private static PreparedStatement stmt = null;
-
 	// Returns all products
-	public static ArrayList<Product> getAllProducts(final String searchField, Integer pageNo) {
+	public static ArrayList<Product> getAllProducts(final Integer pageNo) {
 		// Builds query from constants
 		final String query = DatabaseConstants.PRODUCT_SELECT_STATEMENT + DatabaseConstants.BRAND_INNER_JOIN
 				+ DatabaseConstants.IMAGE_INNER_JOIN + DatabaseConstants.LIMIT_AND_OFFSET + (pageNo - 1)* 50
 				+ DatabaseConstants.SEMI_COLON;
 
-		try {
-			Class.forName(DatabaseConstants.JDBC_DRIVER);
-			// Creates a database connection with the Yeovilhealthcare database
-			// Username of "root" and password of "password"
-			conn = DriverManager.getConnection(DatabaseConstants.DATABASE_CONNECTION,
-					DatabaseConstants.DATABASE_USERNAME, DatabaseConstants.DATABASE_PASSWORD);
-			stmt = conn.prepareStatement(query);
-		} catch (SQLException e) {
-			e.printStackTrace();
-			System.err.println(e);
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-			System.err.println(e);
-		}
-
-		return doQuery(query);
+		return doQuery(query, null, null);
 	}
 
 	// Returns all products for a brand name
@@ -63,24 +30,9 @@ public class ProductsQuery {
 		final String query = DatabaseConstants.PRODUCT_SELECT_STATEMENT + DatabaseConstants.BRAND_INNER_JOIN
 				+ DatabaseConstants.IMAGE_INNER_JOIN + DatabaseConstants.BRAND_WHERE_CLAUSE;
 
-		// Replaces parameters with search field value
-		try {
-			Class.forName(DatabaseConstants.JDBC_DRIVER);
-			// Creates a database connection with the Yeovilhealthcare database
-			// Username of "root" and password of "password"
-			conn = DriverManager.getConnection(DatabaseConstants.DATABASE_CONNECTION,
-					DatabaseConstants.DATABASE_USERNAME, DatabaseConstants.DATABASE_PASSWORD);
-			stmt = conn.prepareStatement(query);
-			stmt.setString(1, searchField);
-		} catch (final SQLException e) {
-			e.printStackTrace();
-			System.err.println(e);
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-			System.err.println(e);
-		}
+		final Integer queryID = 0;
 
-		return doQuery(query);
+		return doQuery(query, queryID, searchField);
 	}
 
 	// Returns all products as searched on by keyword
@@ -90,39 +42,47 @@ public class ProductsQuery {
 				+ DatabaseConstants.IMAGE_INNER_JOIN + DatabaseConstants.PRODUCT_KEYWORD_LEFT_JOIN
 				+ DatabaseConstants.KEYWORD_LEFT_JOIN + DatabaseConstants.KEYWORD_WHERE_CLAUSE;
 
-		// Replaces parameters with search field value
+		final Integer queryID = 1;
+
+		return doQuery(query, queryID, searchField);
+	}
+
+	// Executes the query with the appropriate SQL statement
+	private static ArrayList<Product> doQuery(final String query, final Integer queryID, final String searchField) {
+
+		final ArrayList<Product> products = new ArrayList<Product>();
+
 		try {
 			Class.forName(DatabaseConstants.JDBC_DRIVER);
 			// Creates a database connection with the Yeovilhealthcare database
 			// Username of "root" and password of "password"
-			conn = DriverManager.getConnection(DatabaseConstants.DATABASE_CONNECTION,
+			final Connection conn = DriverManager.getConnection(DatabaseConstants.DATABASE_CONNECTION,
 					DatabaseConstants.DATABASE_USERNAME, DatabaseConstants.DATABASE_PASSWORD);
-			stmt = conn.prepareStatement(query);
-			stmt.setString(1, searchField);
-			stmt.setString(2, searchField);
-			stmt.setString(3, searchField);
-		} catch (final SQLException e) {
-			e.printStackTrace();
-			System.err.println(e);
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-			System.err.println(e);
-		}
+			final PreparedStatement stmt = conn.prepareStatement(query);
 
-		return doQuery(query);
-	}
+			// Used to identify the query that is being executed
+			if (queryID == 0)
+			{
+				// Swaps out the prepared statement parameters for the search field value
+				stmt.setString(1, searchField);
+			}
+			else if (queryID == 1)
+			{
+				stmt.setString(1, searchField);
+				stmt.setString(2, searchField);
+				stmt.setString(3, searchField);
+			}
+			else
+			{
+				//nothing
+			}
 
-	// Executes the query with the appropriate SQL statement
-	private static ArrayList<Product> doQuery(final String query) {
-		products = new ArrayList<Product>();
-
-		try {
 			// Executes the select query
 			final ResultSet rs = stmt.executeQuery(query);
 
 			while (rs.next()) {
 				// Create a new product object with the result set output
-				product = new Product();
+				final Product product = new Product();
 				product.setProductName(rs.getString(DatabaseConstants.PRODUCT_NAME));
 				product.setBrand(rs.getString(DatabaseConstants.BRAND_NAME));
 				product.setProductPrice(Double.parseDouble(rs.getString(DatabaseConstants.PRODUCT_PRICE)));
@@ -147,23 +107,8 @@ public class ProductsQuery {
 		final String query = DatabaseConstants.PRODUCT_SELECT_STATEMENT + DatabaseConstants.BRAND_INNER_JOIN
 				+ DatabaseConstants.IMAGE_INNER_JOIN + DatabaseConstants.SEMI_COLON;
 
-		try {
-			Class.forName(DatabaseConstants.JDBC_DRIVER);
-			// Creates a database connection with the Yeovilhealthcare database
-			// Username of "root" and password of "password"
-			conn = DriverManager.getConnection(DatabaseConstants.DATABASE_CONNECTION,
-					DatabaseConstants.DATABASE_USERNAME, DatabaseConstants.DATABASE_PASSWORD);
-			stmt = conn.prepareStatement(query);
-		} catch (SQLException e) {
-			e.printStackTrace();
-			System.err.println(e);
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-			System.err.println(e);
-		}
+		final ArrayList<Product> products = doQuery(query, null, null);
 
-		ArrayList<Product> products = doQuery(query);
-		
 		Integer numberOfPages = products.size() / 50;
 		if (products.size() % 50 != 0) {
 			numberOfPages++;
