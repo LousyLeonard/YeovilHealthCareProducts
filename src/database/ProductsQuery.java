@@ -21,7 +21,7 @@ public class ProductsQuery {
 				+ DatabaseConstants.IMAGE_INNER_JOIN + DatabaseConstants.LIMIT_AND_OFFSET + (pageNo - 1)* 50
 				+ DatabaseConstants.SEMI_COLON;
 
-		return doQuery(query, null, null);
+		return doQuery(query, searchField);
 	}
 
 	// Returns all products for a brand name
@@ -30,9 +30,7 @@ public class ProductsQuery {
 		final String query = DatabaseConstants.PRODUCT_SELECT_STATEMENT + DatabaseConstants.BRAND_INNER_JOIN
 				+ DatabaseConstants.IMAGE_INNER_JOIN + DatabaseConstants.BRAND_WHERE_CLAUSE;
 
-		final Integer queryID = 0;
-
-		return doQuery(query, queryID, searchField);
+		return doQuery(query, searchField);
 	}
 
 	// Returns all products as searched on by keyword
@@ -42,13 +40,11 @@ public class ProductsQuery {
 				+ DatabaseConstants.IMAGE_INNER_JOIN + DatabaseConstants.PRODUCT_KEYWORD_LEFT_JOIN
 				+ DatabaseConstants.KEYWORD_LEFT_JOIN + DatabaseConstants.KEYWORD_WHERE_CLAUSE;
 
-		final Integer queryID = 1;
-
-		return doQuery(query, queryID, searchField);
+		return doQuery(query, searchField);
 	}
 
 	// Executes the query with the appropriate SQL statement
-	private static ArrayList<Product> doQuery(final String query, final Integer queryID, final String searchField) {
+	private static ArrayList<Product> doQuery(final String query, final String searchField) {
 
 		final ArrayList<Product> products = new ArrayList<Product>();
 
@@ -60,13 +56,20 @@ public class ProductsQuery {
 					DatabaseConstants.DATABASE_USERNAME, DatabaseConstants.DATABASE_PASSWORD);
 			final PreparedStatement stmt = conn.prepareStatement(query);
 
+			final int count = query.length() - query.replace("?", "").length();
+
 			// Used to identify the query that is being executed
-			if (queryID == 0)
+			if (count == 1)
 			{
 				// Swaps out the prepared statement parameters for the search field value
 				stmt.setString(1, searchField);
 			}
-			else if (queryID == 1)
+			else if (count == 2)
+			{
+				stmt.setString(1, searchField);
+				stmt.setString(2, searchField);
+			}
+			else if (count == 3)
 			{
 				stmt.setString(1, searchField);
 				stmt.setString(2, searchField);
@@ -107,7 +110,7 @@ public class ProductsQuery {
 		final String query = DatabaseConstants.PRODUCT_SELECT_STATEMENT + DatabaseConstants.BRAND_INNER_JOIN
 				+ DatabaseConstants.IMAGE_INNER_JOIN + DatabaseConstants.SEMI_COLON;
 
-		final ArrayList<Product> products = doQuery(query, null, null);
+		final ArrayList<Product> products = doQuery(query, null);
 
 		Integer numberOfPages = products.size() / 50;
 		if (products.size() % 50 != 0) {
