@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import core.HTMLProductElement;
 import core.HTMLElementFactory;
+import core.HTMLProductElement;
 import core.Product;
 import database.ProductsQuery;
 import utilities.HTMLElementList;
@@ -24,7 +24,7 @@ public class GetProductsServlet extends HttpServlet {
 
 		final String searchField = request.getParameter("search");
 		final String pageNoField = request.getParameter("pageNo");
-		Integer pageNo = Integer.parseInt(pageNoField);
+		final Integer pageNo = Integer.parseInt(pageNoField);
 
 		final ArrayList<Product> products = ProductsQuery.getAllProducts(searchField, pageNo);
 		final HTMLElementList<HTMLProductElement> htmlProducts = new HTMLElementList<HTMLProductElement>();
@@ -32,7 +32,7 @@ public class GetProductsServlet extends HttpServlet {
 		for (final Product product: products) {
 			htmlProducts.add(HTMLElementFactory.getHTMLFromProduct(product));
 		}
-		
+
 		out.println(htmlProducts);
 
 	}

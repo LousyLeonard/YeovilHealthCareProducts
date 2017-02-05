@@ -15,7 +15,7 @@ import core.Product;
 public class ProductsQuery {
 
 	// Returns all products
-	public static ArrayList<Product> getAllProducts(final Integer pageNo) {
+	public static ArrayList<Product> getAllProducts(final String searchField, final Integer pageNo) {
 		// Builds query from constants
 		final String query = DatabaseConstants.PRODUCT_SELECT_STATEMENT + DatabaseConstants.BRAND_INNER_JOIN
 				+ DatabaseConstants.IMAGE_INNER_JOIN + DatabaseConstants.LIMIT_AND_OFFSET + (pageNo - 1)* 50
