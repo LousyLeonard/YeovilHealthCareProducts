@@ -34,7 +34,7 @@ public abstract class ProductConverter {
 				
 				KEYWORDS xmlKeywords = xmlProduct.getKEYWORDS();
 				for (KeywordText xmlKeyword : xmlKeywords.getKeywordText()) {
-					product.addImagePath(xmlKeyword.getvalue());
+					product.addKeyword(xmlKeyword.getvalue());
 				}
 				
 				results.add(product);
