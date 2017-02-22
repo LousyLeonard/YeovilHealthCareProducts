@@ -57,7 +57,7 @@ public class HTMLPageElement {
 	}
 	
 	private String getPageNumberActiveElement(Integer number) {
-		return "<li><a onclick='pageNo=" + number + ";getProducts();getPages();' class='active'>" + number + "</a></li>";
+		return "<li><a onclick='pageNo=" + number + ";getProducts();getPages();' class='active'><u>" + number + "</u></a></li>";
 	}
 	
 	public String toString() {
