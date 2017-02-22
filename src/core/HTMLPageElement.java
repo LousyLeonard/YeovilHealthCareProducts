@@ -8,8 +8,13 @@ package core;
  *
  */
 public class HTMLPageElement {
-	private final static String PAGE_OPEN = "<ul class='pagination'><li><a onclick='pageNo--;getProducts();getPages();'>&laquo;</a></li>";
-	private final static String PAGE_CLOSE = "<li><a onclick='pageNo++;getProducts();getPages();'>&raquo;</a></li></ul>";			
+	private final static String PAGE_OPEN = "<ul class='pagination'>";
+	private final static String PAGE_FIRST = "<li><a onclick='pageNo=1;getProducts();getPages();'>&laquo;&laquo;</a></li>";
+	private final static String PAGE_PREV = "<li><a onclick='pageNo--;getProducts();getPages();'>&laquo;</a></li>";
+	private final static String PAGE_NEXT = "<li><a onclick='pageNo++;getProducts();getPages();'>&raquo;</a></li>";
+	private final static String PAGE_LAST = "<li><a onclick='pageNo=#;getProducts();getPages();'>&raquo;&raquo;</a></li>";			
+	private final static String PAGE_CLOSE = "</ul>";			
+
 	private final static Integer MAX_NUMBER_OF_ELEMENTS = Integer.valueOf(8);
 
 	private StringBuilder body;
@@ -17,8 +22,12 @@ public class HTMLPageElement {
 	public HTMLPageElement(Integer offset, Integer totalPages) {
 		body = new StringBuilder();
 		
-		body.append(PAGE_OPEN);
+		String pageLast = PAGE_LAST.replace("#", Integer.toString(totalPages));
 		
+		body.append(PAGE_OPEN);
+		body.append(PAGE_FIRST);
+		body.append(PAGE_PREV);
+
 		// Do this as numbers calculate the lowest available and then count up like 9 stopping at max
 		Integer lowestPage = offset;
 		if (lowestPage - (MAX_NUMBER_OF_ELEMENTS / 2) <= 0) {
@@ -29,16 +38,26 @@ public class HTMLPageElement {
 				
 		for(int i = 0; i < MAX_NUMBER_OF_ELEMENTS; ++i) {
 			if (lowestPage + i <= totalPages) {
-				body.append(getPageNumberElement(lowestPage + i));
+				if (offset == lowestPage + i) {
+					body.append(getPageNumberActiveElement(lowestPage + i));
+				} else {
+					body.append(getPageNumberElement(lowestPage + i));
+				}
 			}
 		}
 		
+		body.append(PAGE_NEXT);
+		body.append(pageLast);
 		body.append(PAGE_CLOSE);
 
 	}
 	
 	private String getPageNumberElement(Integer number) {
 		return "<li><a onclick='pageNo=" + number + ";getProducts();getPages();'>" + number + "</a></li>";
+	}
+	
+	private String getPageNumberActiveElement(Integer number) {
+		return "<li><a onclick='pageNo=" + number + ";getProducts();getPages();' class='active'>" + number + "</a></li>";
 	}
 	
 	public String toString() {
