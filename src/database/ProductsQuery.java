@@ -15,7 +15,7 @@ import core.Product;
 public class ProductsQuery {
 
 	// Returns all products
-	public static ArrayList<Product> getAllProducts(final String searchField, final Integer pageNo) {
+	public static ArrayList<Product> getAllProducts(final ArrayList<String> searchField, final Integer pageNo) {
 		// Builds query from constants
 		final String query = DatabaseConstants.PRODUCT_SELECT_STATEMENT + DatabaseConstants.BRAND_INNER_JOIN
 				+ DatabaseConstants.IMAGE_INNER_JOIN + DatabaseConstants.LIMIT_AND_OFFSET + (pageNo - 1)* 20
@@ -25,7 +25,7 @@ public class ProductsQuery {
 	}
 
 	// Returns all products for a brand name
-	public static ArrayList<Product> getProductsByBrand(final String searchField) {
+	public static ArrayList<Product> getProductsByBrand(final ArrayList<String> searchField) {
 		// Builds query from constants
 		final String query = DatabaseConstants.PRODUCT_SELECT_STATEMENT + DatabaseConstants.BRAND_INNER_JOIN
 				+ DatabaseConstants.IMAGE_INNER_JOIN + DatabaseConstants.BRAND_WHERE_CLAUSE;
@@ -34,7 +34,7 @@ public class ProductsQuery {
 	}
 
 	// Returns all products as searched on by keyword
-	public static ArrayList<Product> getProductsByKeyword(final String searchField) {
+	public static ArrayList<Product> getProductsByKeyword(final ArrayList<String> searchField) {
 		// Builds query from constants
 		final String query = DatabaseConstants.PRODUCT_SELECT_STATEMENT + DatabaseConstants.BRAND_INNER_JOIN
 				+ DatabaseConstants.IMAGE_INNER_JOIN + DatabaseConstants.PRODUCT_KEYWORD_LEFT_JOIN
@@ -44,7 +44,7 @@ public class ProductsQuery {
 	}
 
 	// Executes the query with the appropriate SQL statement
-	private static ArrayList<Product> doQuery(final String query, final String searchField) {
+	private static ArrayList<Product> doQuery(final String query, final ArrayList<String> searchField) {
 
 		final ArrayList<Product> products = new ArrayList<Product>();
 
@@ -62,18 +62,18 @@ public class ProductsQuery {
 			if (count == 1)
 			{
 				// Swaps out the prepared statement parameters for the search field value
-				stmt.setString(1, searchField);
+				//stmt.setString(1, searchField);
 			}
 			else if (count == 2)
 			{
-				stmt.setString(1, searchField);
-				stmt.setString(2, searchField);
+				//stmt.setString(1, searchField);
+				//stmt.setString(2, searchField);
 			}
 			else if (count == 3)
 			{
-				stmt.setString(1, searchField);
-				stmt.setString(2, searchField);
-				stmt.setString(3, searchField);
+				//stmt.setString(1, searchField);
+				//stmt.setString(2, searchField);
+				//stmt.setString(3, searchField);
 			}
 			else
 			{

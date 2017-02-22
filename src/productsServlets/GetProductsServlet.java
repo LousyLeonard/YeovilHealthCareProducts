@@ -14,6 +14,7 @@ import core.HTMLProductElement;
 import core.Product;
 import database.ProductsQuery;
 import utilities.HTMLElementList;
+import utilities.StringUtils;
 
 public class GetProductsServlet extends HttpServlet {
 	@Override
@@ -26,7 +27,8 @@ public class GetProductsServlet extends HttpServlet {
 		final String pageNoField = request.getParameter("pageNo");
 		final Integer pageNo = Integer.parseInt(pageNoField);
 
-		final ArrayList<Product> products = ProductsQuery.getAllProducts(searchField, pageNo);
+		final ArrayList<Product> products = 
+				ProductsQuery.getAllProducts(StringUtils.getWordsInField(searchField), pageNo);
 		final HTMLElementList<HTMLProductElement> htmlProducts = new HTMLElementList<HTMLProductElement>();
 
 		for (final Product product: products) {
