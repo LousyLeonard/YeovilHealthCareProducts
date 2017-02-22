@@ -18,7 +18,7 @@ public class ProductsQuery {
 	public static ArrayList<Product> getAllProducts(final String searchField, final Integer pageNo) {
 		// Builds query from constants
 		final String query = DatabaseConstants.PRODUCT_SELECT_STATEMENT + DatabaseConstants.BRAND_INNER_JOIN
-				+ DatabaseConstants.IMAGE_INNER_JOIN + DatabaseConstants.LIMIT_AND_OFFSET + (pageNo - 1)* 50
+				+ DatabaseConstants.IMAGE_INNER_JOIN + DatabaseConstants.LIMIT_AND_OFFSET + (pageNo - 1)* 20
 				+ DatabaseConstants.SEMI_COLON;
 
 		return doQuery(query, searchField);
@@ -112,8 +112,8 @@ public class ProductsQuery {
 
 		final ArrayList<Product> products = doQuery(query, null);
 
-		Integer numberOfPages = products.size() / 50;
-		if (products.size() % 50 != 0) {
+		Integer numberOfPages = products.size() / 20;
+		if (products.size() % 20 != 0) {
 			numberOfPages++;
 		}
 		return numberOfPages;

@@ -157,5 +157,5 @@ public abstract class DatabaseConstants {
 	public static final String USE_DATABASE = "USE YeovilHealthcare; ";
 	
 	/** Constant to configure the limit and the offset. */
-	public static final String LIMIT_AND_OFFSET = " LIMIT 50 OFFSET ";
+	public static final String LIMIT_AND_OFFSET = " LIMIT 20 OFFSET ";
 }
