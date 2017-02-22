@@ -47,7 +47,7 @@ public class Product {
 	}
 	
 	public String getProductPriceForDisplay() {
-		DecimalFormat df = new DecimalFormat("#.00");
+		DecimalFormat df = new DecimalFormat("0.00");
 		return df.format(this.productPrice);
 	}
 
