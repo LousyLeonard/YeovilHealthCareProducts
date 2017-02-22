@@ -88,7 +88,7 @@ public abstract class DatabaseConstants {
 	public static final String IMAGE_FILEPATH = "Image_Filepath";
 
 	/** SQL inner join of the image table on the product table. */
-	public static final String IMAGE_INNER_JOIN = "INNER JOIN Image AS i ON i.Product_ID = p.Product_ID";
+	public static final String IMAGE_INNER_JOIN = "INNER JOIN Image AS i ON i.Product_ID = p.Product_ID ";
 
 	/** Insert statement for the Image table. */
 	public static final String IMAGE_TABLE_INSERTS = "INSERT INTO Image (Image_ID, Image_Filepath, Product_ID) VALUES (";
@@ -119,6 +119,9 @@ public abstract class DatabaseConstants {
 
 	/** Constant for the SQL where clause for product name. */
 	public static final String KEYWORD_WHERE_CLAUSE = "WHERE p.Product_Name = '?' OR b.Brand_Name = '?' OR k.Keyword_Text = '?';";
+
+	/** Constant for the SQL where clause for product name. */
+	public static final String SEARCH_CLAUSE = "WHERE p.Product_Name IN('?') OR b.Brand_Name IN('?') OR k.Keyword_Text IN('?')";
 
 	/** Insert statement for the Product-Keyword table. */
 	public static final String PRODUCT_KEYWORD_INSERTS = "INSERT INTO Product_Keyword (Product_ID, Keyword_ID) VALUES (";

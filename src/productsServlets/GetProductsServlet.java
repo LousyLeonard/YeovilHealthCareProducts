@@ -13,7 +13,7 @@ import core.HTMLElementFactory;
 import core.HTMLProductElement;
 import core.Product;
 import database.ProductsQuery;
-import utilities.HTMLElementList;
+import utilities.OuterBracketlessList;
 import utilities.StringUtils;
 
 public class GetProductsServlet extends HttpServlet {
@@ -27,9 +27,12 @@ public class GetProductsServlet extends HttpServlet {
 		final String pageNoField = request.getParameter("pageNo");
 		final Integer pageNo = Integer.parseInt(pageNoField);
 
+		final OuterBracketlessList<String> searchterms = 
+				new OuterBracketlessList<String>(StringUtils.getWordsInField(searchField));
+		
 		final ArrayList<Product> products = 
-				ProductsQuery.getAllProducts(StringUtils.getWordsInField(searchField), pageNo);
-		final HTMLElementList<HTMLProductElement> htmlProducts = new HTMLElementList<HTMLProductElement>();
+				ProductsQuery.getAllProducts(searchterms, pageNo);
+		final OuterBracketlessList<HTMLProductElement> htmlProducts = new OuterBracketlessList<HTMLProductElement>();
 
 		for (final Product product: products) {
 			htmlProducts.add(HTMLElementFactory.getHTMLFromProduct(product));

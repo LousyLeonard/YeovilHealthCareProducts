@@ -16,7 +16,9 @@ public abstract class StringUtils {
 		
 		String[] words = field.split(" ");
 		for (int i = 0; i < words.length; ++i) {
-			results.add(words[i]);
+			if (!words[i].isEmpty()) {
+				results.add(words[i]);
+			}
 		}
 		
 		return results;

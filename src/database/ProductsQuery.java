@@ -17,28 +17,31 @@ public class ProductsQuery {
 	// Returns all products
 	public static ArrayList<Product> getAllProducts(final ArrayList<String> searchField, final Integer pageNo) {
 		// Builds query from constants
-		final String query = DatabaseConstants.PRODUCT_SELECT_STATEMENT + DatabaseConstants.BRAND_INNER_JOIN
-				+ DatabaseConstants.IMAGE_INNER_JOIN + DatabaseConstants.LIMIT_AND_OFFSET + (pageNo - 1)* 20
-				+ DatabaseConstants.SEMI_COLON;
+		
+		final StringBuilder query = new StringBuilder(DatabaseConstants.PRODUCT_SELECT_STATEMENT 
+				+ DatabaseConstants.BRAND_INNER_JOIN
+				+ DatabaseConstants.IMAGE_INNER_JOIN 
+				+ DatabaseConstants.PRODUCT_KEYWORD_LEFT_JOIN
+				+ DatabaseConstants.KEYWORD_LEFT_JOIN);
+		
+		if (!searchField.isEmpty()) {
+			query.append(DatabaseConstants.SEARCH_CLAUSE);
 
-		return doQuery(query, searchField);
+		}
+		
+		query.append(DatabaseConstants.LIMIT_AND_OFFSET + (pageNo - 1)* 20);
+		query.append(DatabaseConstants.SEMI_COLON);
+
+		return doQuery(query.toString(), searchField);
 	}
 
 	// Returns all products for a brand name
 	public static ArrayList<Product> getProductsByBrand(final ArrayList<String> searchField) {
 		// Builds query from constants
-		final String query = DatabaseConstants.PRODUCT_SELECT_STATEMENT + DatabaseConstants.BRAND_INNER_JOIN
-				+ DatabaseConstants.IMAGE_INNER_JOIN + DatabaseConstants.BRAND_WHERE_CLAUSE;
-
-		return doQuery(query, searchField);
-	}
-
-	// Returns all products as searched on by keyword
-	public static ArrayList<Product> getProductsByKeyword(final ArrayList<String> searchField) {
-		// Builds query from constants
-		final String query = DatabaseConstants.PRODUCT_SELECT_STATEMENT + DatabaseConstants.BRAND_INNER_JOIN
-				+ DatabaseConstants.IMAGE_INNER_JOIN + DatabaseConstants.PRODUCT_KEYWORD_LEFT_JOIN
-				+ DatabaseConstants.KEYWORD_LEFT_JOIN + DatabaseConstants.KEYWORD_WHERE_CLAUSE;
+		final String query = DatabaseConstants.PRODUCT_SELECT_STATEMENT 
+				+ DatabaseConstants.BRAND_INNER_JOIN
+				+ DatabaseConstants.IMAGE_INNER_JOIN 
+				+ DatabaseConstants.BRAND_WHERE_CLAUSE;
 
 		return doQuery(query, searchField);
 	}
@@ -56,32 +59,15 @@ public class ProductsQuery {
 					DatabaseConstants.DATABASE_USERNAME, DatabaseConstants.DATABASE_PASSWORD);
 			final PreparedStatement stmt = conn.prepareStatement(query);
 
-			final int count = query.length() - query.replace("?", "").length();
-
-			// Used to identify the query that is being executed
-			if (count == 1)
-			{
-				// Swaps out the prepared statement parameters for the search field value
-				//stmt.setString(1, searchField);
-			}
-			else if (count == 2)
-			{
-				//stmt.setString(1, searchField);
-				//stmt.setString(2, searchField);
-			}
-			else if (count == 3)
-			{
-				//stmt.setString(1, searchField);
-				//stmt.setString(2, searchField);
-				//stmt.setString(3, searchField);
-			}
-			else
-			{
-				//nothing
+			String finalQuery;
+			if (searchField != null) {
+				finalQuery = query.replace("?", searchField.toString());
+			} else {
+				finalQuery = query;
 			}
 
 			// Executes the select query
-			final ResultSet rs = stmt.executeQuery(query);
+			final ResultSet rs = stmt.executeQuery(finalQuery);
 
 			while (rs.next()) {
 				// Create a new product object with the result set output

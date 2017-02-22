@@ -13,7 +13,7 @@ import core.Brand;
 import core.HTMLBrandElement;
 import core.HTMLElementFactory;
 import database.BrandsQuery;
-import utilities.HTMLElementList;
+import utilities.OuterBracketlessList;
 
 /**
  * @author lawrence.coles
@@ -28,7 +28,7 @@ public class GetBrandsServlet extends HttpServlet {
 		final PrintWriter out = response.getWriter();
 
 		final ArrayList<Brand> brands = BrandsQuery.getTopTenBrands();
-		final HTMLElementList<HTMLBrandElement> htmlProducts = new HTMLElementList<HTMLBrandElement>();
+		final OuterBracketlessList<HTMLBrandElement> htmlProducts = new OuterBracketlessList<HTMLBrandElement>();
 
 		for (final Brand brand : brands) {
 			htmlProducts.add(HTMLElementFactory.getHTMLFromBrand(brand));
