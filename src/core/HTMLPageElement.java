@@ -21,8 +21,10 @@ public class HTMLPageElement {
 		
 		// Do this as numbers calculate the lowest available and then count up like 9 stopping at max
 		Integer lowestPage = offset;
-		while (lowestPage - (MAX_NUMBER_OF_ELEMENTS / 2) <= 0) {
-			lowestPage++;
+		if (lowestPage - (MAX_NUMBER_OF_ELEMENTS / 2) <= 0) {
+			lowestPage = 1;
+		} else {
+			lowestPage = offset - (MAX_NUMBER_OF_ELEMENTS / 2);
 		}
 				
 		for(int i = 0; i < MAX_NUMBER_OF_ELEMENTS; ++i) {
