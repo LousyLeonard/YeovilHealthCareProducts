@@ -120,8 +120,10 @@ public abstract class DatabaseConstants {
 	/** Constant for the SQL where clause for product name. */
 	public static final String KEYWORD_WHERE_CLAUSE = "WHERE p.Product_Name = '?' OR b.Brand_Name = '?' OR k.Keyword_Text = '?';";
 
+	public static final String TOTAL_NUMBER_OF_PAGES = "SELECT COUNT(p.Product_ID) as Product_Count FROM YeovilHealthcare.Product AS p ";
+	
 	/** Constant for the SQL where clause for product name. */
-	public static final String SEARCH_CLAUSE = "WHERE p.Product_Name IN('?') OR b.Brand_Name IN('?') OR k.Keyword_Text IN('?')";
+	public static final String SEARCH_CLAUSE = "WHERE p.Product_Name IN(?) OR b.Brand_Name IN(?) OR k.Keyword_Text IN(?)";
 
 	/** Insert statement for the Product-Keyword table. */
 	public static final String PRODUCT_KEYWORD_INSERTS = "INSERT INTO Product_Keyword (Product_ID, Keyword_ID) VALUES (";
@@ -129,6 +131,9 @@ public abstract class DatabaseConstants {
 	/** SQL left join of the product_keyword table on the product table. */
 	public static final String PRODUCT_KEYWORD_LEFT_JOIN = "LEFT JOIN Product_Keyword AS pk ON pk.Product_ID = p.Product_ID ";
 
+	/** Constant for the Product Name. */
+	public static final String PRODUCT_COUNT = "Product_Count";
+	
 	/** Constant for the Product Name. */
 	public static final String PRODUCT_NAME = "Product_Name";
 

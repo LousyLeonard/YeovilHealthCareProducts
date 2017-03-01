@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import core.HTMLElementFactory;
+import core.HTMLPageElement;
 import core.HTMLProductElement;
 import core.Product;
 import database.ProductsQuery;
@@ -32,13 +33,18 @@ public class GetProductsServlet extends HttpServlet {
 		
 		final ArrayList<Product> products = 
 				ProductsQuery.getAllProducts(searchterms, pageNo);
-		final OuterBracketlessList<HTMLProductElement> htmlProducts = new OuterBracketlessList<HTMLProductElement>();
+		final OuterBracketlessList<HTMLProductElement> htmlProducts = 
+				new OuterBracketlessList<HTMLProductElement>();
+		
+		final HTMLPageElement htmlPage = 
+				new HTMLPageElement(Integer.parseInt(pageNoField),
+						ProductsQuery.getTotalProducts(searchterms) / 20);
 
 		for (final Product product: products) {
 			htmlProducts.add(HTMLElementFactory.getHTMLFromProduct(product));
 		}
 
 		out.println(htmlProducts);
-
+		out.println(htmlPage);
 	}
 }

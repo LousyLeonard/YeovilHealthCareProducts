@@ -34,6 +34,63 @@ public class ProductsQuery {
 
 		return doQuery(query.toString(), searchField);
 	}
+	
+	public static Integer getTotalProducts(final ArrayList<String> searchField) {
+		final StringBuilder query = new StringBuilder(DatabaseConstants.TOTAL_NUMBER_OF_PAGES
+				+ DatabaseConstants.BRAND_INNER_JOIN
+				+ DatabaseConstants.IMAGE_INNER_JOIN 
+				+ DatabaseConstants.PRODUCT_KEYWORD_LEFT_JOIN
+				+ DatabaseConstants.KEYWORD_LEFT_JOIN);
+		
+		if (!searchField.isEmpty()) {
+			query.append(DatabaseConstants.SEARCH_CLAUSE);
+
+		}
+		
+		query.append(DatabaseConstants.SEMI_COLON);
+		
+		return doNumericQuery(query.toString(), searchField);
+	}
+	
+	public static Integer doNumericQuery(final String query, final ArrayList<String> searchField) {
+		Integer result = 0;
+
+		try {
+			Class.forName(DatabaseConstants.JDBC_DRIVER);
+			// Creates a database connection with the Yeovilhealthcare database
+			// Username of "root" and password of "password"
+			final Connection conn = DriverManager.getConnection(DatabaseConstants.DATABASE_CONNECTION,
+					DatabaseConstants.DATABASE_USERNAME, DatabaseConstants.DATABASE_PASSWORD);
+			final PreparedStatement stmt = conn.prepareStatement(query);
+
+			String finalQuery;
+			if (searchField != null && !searchField.isEmpty()) {
+				StringBuilder entries = new StringBuilder();
+				for (String entry : searchField) {
+					entries.append("'" + entry.toString() + "',");
+				}
+				entries.deleteCharAt(entries.length() - 1);
+				finalQuery = query.replace("?", entries.toString());
+			} else {
+				finalQuery = query;
+			}
+
+			// Executes the select query
+			final ResultSet rs = stmt.executeQuery(finalQuery);
+
+			while (rs.next()) {
+				// Adds the product object to the products arraylist
+				result = rs.getInt(DatabaseConstants.PRODUCT_COUNT);
+			}
+
+			// Closes the database connection
+			conn.close();
+		} catch (final Exception e) {
+			System.err.println(e);
+		}
+
+		return result;
+	}
 
 	// Returns all products for a brand name
 	public static ArrayList<Product> getProductsByBrand(final ArrayList<String> searchField) {
@@ -60,8 +117,13 @@ public class ProductsQuery {
 			final PreparedStatement stmt = conn.prepareStatement(query);
 
 			String finalQuery;
-			if (searchField != null) {
-				finalQuery = query.replace("?", searchField.toString());
+			if (searchField != null  && !searchField.isEmpty()) {
+				StringBuilder entries = new StringBuilder();
+				for (String entry : searchField) {
+					entries.append("'" + entry.toString() + "',");
+				}
+				entries.deleteCharAt(entries.length() - 1);
+				finalQuery = query.replace("?", entries.toString());
 			} else {
 				finalQuery = query;
 			}

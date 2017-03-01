@@ -30,7 +30,6 @@
      	window.onload = function() { 
      		getProducts();
      		getBrands();
-     		getPages();
         };
         
         function getProducts() {
@@ -46,11 +45,6 @@
         	});
         };
         
-        function getPages() {
-        	$.get("pages", {"pageNo":window.pageNo}, function(responseText) {
-        		$("#pagination").html(responseText);
-        	});
-        };
      </script>
 </head><!--/head-->
 
@@ -189,7 +183,6 @@
 					<div class="features_items"><!--features_items-->
 						<h2 class="title text-center">Features Items</h2>
 						<div id="resultsTable"></div>
-						<div align="center" id="pagination"></div>
 					</div><!--features_items-->
 					
 				</div>
